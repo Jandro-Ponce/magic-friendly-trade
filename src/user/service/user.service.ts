@@ -33,4 +33,8 @@ export class UserService {
   delete(id: number): Promise<void> {
     return this.userRepository.remove(id);
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findByEmail(email);
+  }
 }
