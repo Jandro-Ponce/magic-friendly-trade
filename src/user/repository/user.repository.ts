@@ -16,7 +16,7 @@ export class UserRepository {
     return this.repository.find();
   }
 
-  async findById(id: number): Promise<User | null> {
+  async findById(id: string): Promise<User | null> {
 
     return this.repository.findOneBy({ id });
   }
@@ -30,4 +30,9 @@ export class UserRepository {
   async remove(id: number): Promise<void> {
     await this.repository.delete(id);
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    
+  return this.repository.findOneBy({ email });
+}
 }
