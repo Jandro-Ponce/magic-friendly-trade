@@ -12,27 +12,27 @@ export class UserRepository {
   ) {}
 
   async findAll(): Promise<User[]> {
-
     return this.repository.find();
   }
 
   async findById(id: string): Promise<User | null> {
-
     return this.repository.findOneBy({ id });
   }
 
   async createAndSave(userData: CreateUserDto): Promise<User> {
-  const newUser = this.repository.create(userData);
-  
-  return this.repository.save(newUser);
-}
+    const newUser = this.repository.create(userData);
+    return this.repository.save(newUser);
+  }
 
   async remove(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    
-  return this.repository.findOneBy({ email });
-}
+    return this.repository.findOneBy({ email });
+  }
+
+  async save(user: User): Promise<User> {
+    return this.repository.save(user);
+  }
 }

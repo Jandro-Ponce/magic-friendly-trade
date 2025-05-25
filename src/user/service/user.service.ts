@@ -3,10 +3,18 @@ import { UserRepository } from '../repository/user.repository';
 import { User } from '../entity/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { MailService } from 'src/mail/services/mail.service';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+    private readonly mailService: MailService,
+  ) {}
 
   findAll(): Promise<User[]> {
     return this.userRepository.findAll();
@@ -27,7 +35,31 @@ export class UserService {
       ...userData,
       password: hashedPassword,
     };
-    return this.userRepository.createAndSave(userWithHashedPassword);
+    
+    const user = await this.userRepository.createAndSave(userWithHashedPassword);
+      
+    const token = this.jwtService.sign(
+      { sub: user.id },
+      {
+        secret: this.configService.get('JWT_SECRET'),
+        expiresIn: '1h',
+      },
+    );
+    const frontendUrl = this.configService.get('FRONTEND_URL');
+    const verificationLink = `${frontendUrl}/verify-email?token=${token}`;
+
+    await this.mailService.sendMail({
+      to: user.email,
+      subject: 'Bienvenido a MagicTrade - Verifica tu cuenta',
+      html: `
+        <h1>Bienvenido, ${user.firstName}!</h1>
+        <p>Gracias por registrarte en MagicTrade.</p>
+        <p>Por favor, verifica tu correo haciendo clic en el siguiente enlace:</p>
+        <a href="${verificationLink}">Verificar cuenta</a>
+        <p>Este enlace caduca en 1 hora.</p>
+      `,
+    });
+    return user;
   }
 
   delete(id: number): Promise<void> {
