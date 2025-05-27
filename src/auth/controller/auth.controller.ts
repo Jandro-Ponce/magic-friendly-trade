@@ -1,10 +1,14 @@
-import { Controller, Post, Body, Get, Query, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, BadRequestException, UnauthorizedException, Redirect } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { LoginDto } from '../dto/login.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService
+  ) {}
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
@@ -19,11 +23,16 @@ export class AuthController {
   }
 
   @Get('verify-email')
+  @Redirect()
   async verifyEmail(@Query('token') token: string) {
     if (!token) {
       throw new BadRequestException('Token no proporcionado');
     }
 
-    return this.authService.verifyEmailToken(token);
+    await this.authService.verifyEmailToken(token);
+    
+    return {
+      url: this.configService.get('FRONTEND_URL') + '/auth/login?verified=true',
+    };
   }
 }
