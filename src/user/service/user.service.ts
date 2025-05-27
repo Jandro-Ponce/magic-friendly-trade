@@ -46,16 +46,16 @@ export class UserService {
       },
     );
     const frontendUrl = this.configService.get('FRONTEND_URL');
-    const verificationLink = `${frontendUrl}/verify-email?token=${token}`;
+    const verificationLink = `${frontendUrl}/auth/verify-email?token=${token}`;
 
     await this.mailService.sendMail({
       to: user.email,
       subject: 'Bienvenido a MagicTrade - Verifica tu cuenta',
       html: `
         <h1>Bienvenido, ${user.firstName}!</h1>
-        <p>Gracias por registrarte en MagicTrade.</p>
+        <p>Gracias por registrarte en MagicTrade.🎉</p>
         <p>Por favor, verifica tu correo haciendo clic en el siguiente enlace:</p>
-        <a href="${verificationLink}">Verificar cuenta</a>
+        <a href="${verificationLink}">✅ Verificar cuenta ✅</a>
         <p>Este enlace caduca en 1 hora.</p>
       `,
     });
