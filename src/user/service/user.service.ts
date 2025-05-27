@@ -52,11 +52,15 @@ export class UserService {
       to: user.email,
       subject: 'Bienvenido a MagicTrade - Verifica tu cuenta',
       html: `
-        <h1>Bienvenido, ${user.firstName}!</h1>
-        <p>Gracias por registrarte en MagicTrade.🎉</p>
-        <p>Por favor, verifica tu correo haciendo clic en el siguiente enlace:</p>
-        <a href="${verificationLink}">✅ Verificar cuenta ✅</a>
-        <p>Este enlace caduca en 1 hora.</p>
+        <div style="font-family: sans-serif; color: #333;">
+          <h1 style="color: #4CAF50;">Bienvenido, ${user.firstName}!</h1>
+          <p>Gracias por registrarte en <strong>MagicTrade</strong> 🎉</p>
+          <p>Por favor, verifica tu correo haciendo clic en el siguiente enlace:</p>
+          <a href="${verificationLink}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+            ✅ Verificar cuenta ✅
+          </a>
+          <p style="margin-top: 20px;">Este enlace caduca en 1 hora.</p>
+      </div>
       `,
     });
     return user;
