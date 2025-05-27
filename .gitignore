@@ -38,4 +38,4 @@ lerna-debug.log*
 .env
 
 # Otros
-src/user/uploads/
+uploads/

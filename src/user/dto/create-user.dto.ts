@@ -29,6 +29,5 @@ export class CreateUserDto {
   lastName: string;
 
   @IsOptional()
-  @IsUrl()
   avatar?: string;
 }
