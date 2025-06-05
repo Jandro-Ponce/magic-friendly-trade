@@ -66,7 +66,7 @@ export class UserService {
     return user;
   }
 
-  delete(id: number): Promise<void> {
+  delete(id: string): Promise<void> {
     return this.userRepository.remove(id);
   }
 
