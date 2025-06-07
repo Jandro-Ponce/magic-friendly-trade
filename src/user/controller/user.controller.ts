@@ -1,4 +1,16 @@
-import { Controller, Post, Get, Body, UseGuards, Request, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  UseGuards,
+  Request,
+  UploadedFile,
+  UseInterceptors,
+  Delete,
+  Param,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -17,16 +29,18 @@ export class UserController {
   }
 
   @Post('upload-avatar')
-  @UseInterceptors(FileInterceptor('avatar', {
-    storage: diskStorage({
-      destination: './uploads/avatars',
-      filename: (req, file, cb) => {
-        const ext = file.originalname.split('.').pop();
-        const filename = `${uuid()}.${ext}`;
-        cb(null, filename);
-      },
+  @UseInterceptors(
+    FileInterceptor('avatar', {
+      storage: diskStorage({
+        destination: './uploads/avatars',
+        filename: (req, file, cb) => {
+          const ext = file.originalname.split('.').pop();
+          const filename = `${uuid()}.${ext}`;
+          cb(null, filename);
+        },
+      }),
     }),
-  }))
+  )
   uploadAvatar(@UploadedFile() file: Express.Multer.File) {
     return { url: `/uploads/avatars/${file.filename}` };
   }
@@ -42,5 +56,12 @@ export class UserController {
     const userId = req.user.userId;
     const user = await this.userService.findById(userId);
     return GetUserProfileResponse.create(user);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete(':id')
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    await this.userService.delete(id);
+    return { message: 'User deleted' };
   }
 }
