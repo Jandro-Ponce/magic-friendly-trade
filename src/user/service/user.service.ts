@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
-import { User } from '../entity/user.entity';
+import { User, Role } from '../entity/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { MailService } from 'src/mail/services/mail.service';
@@ -34,8 +34,9 @@ export class UserService {
     const userWithHashedPassword = {
       ...userData,
       password: hashedPassword,
+      role: Role.USER,
     };
-    
+
     const user = await this.userRepository.createAndSave(userWithHashedPassword);
       
     const token = this.jwtService.sign(
