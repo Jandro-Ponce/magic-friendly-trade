@@ -14,6 +14,9 @@ import {
 import { UserService } from '../service/user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Role } from '../entity/user.entity';
 import { GetUserProfileResponse } from './response/get-user-profile.response';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -58,7 +61,8 @@ export class UserController {
     return GetUserProfileResponse.create(user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
   @Delete(':id')
   async remove(@Param('id', new ParseUUIDPipe()) id: string) {
     await this.userService.delete(id);
