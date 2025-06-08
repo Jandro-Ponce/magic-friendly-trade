@@ -1,4 +1,4 @@
-import { User } from '../../entity/user.entity';
+import { User, Role } from '../../entity/user.entity';
 
 export class GetUserProfileResponse {
   id: string;
@@ -6,6 +6,7 @@ export class GetUserProfileResponse {
   email: string;
   firstName: string;
   lastName: string;
+  role: Role;
   avatar?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -17,6 +18,7 @@ export class GetUserProfileResponse {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      role: user.role,
       avatar: user.avatar,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,

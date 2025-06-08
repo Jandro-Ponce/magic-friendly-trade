@@ -55,7 +55,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  async getProfile(@Request() req) {
+  async getProfile(@Request() req): Promise<GetUserProfileResponse> {
     const userId = req.user.userId;
     const user = await this.userService.findById(userId);
     return GetUserProfileResponse.create(user);
