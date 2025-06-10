@@ -19,7 +19,11 @@ export class InventoryController {
     const userId = req.user.userId;
     return this.inventoryService.create({
       user: { id: userId } as any,
-      card: { id: dto.cardId } as any,
+      card: {
+        id: dto.cardId,
+        name: dto.cardName,
+        imageUrl: dto.imageUrl,
+      } as any,
       quantity: dto.quantity,
     });
   }

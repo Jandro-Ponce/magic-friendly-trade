@@ -19,7 +19,11 @@ export class WishlistController {
     const userId = req.user.userId;
     return this.wishlistService.create({
       user: { id: userId } as any,
-      card: { id: dto.cardId } as any,
+      card: {
+        id: dto.cardId,
+        name: dto.cardName,
+        imageUrl: dto.imageUrl,
+      } as any,
       desiredQuantity: dto.desiredQuantity,
     });
   }
