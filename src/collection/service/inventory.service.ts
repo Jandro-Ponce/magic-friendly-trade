@@ -1,10 +1,14 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InventoryItemRepository } from '../repository/inventory-item.repository';
 import { InventoryItem } from '../entity/inventory-item.entity';
+import { CardService } from './card.service';
 
 @Injectable()
 export class InventoryService {
-  constructor(private readonly repository: InventoryItemRepository) {}
+  constructor(
+    private readonly repository: InventoryItemRepository,
+    private readonly cardService: CardService,
+  ) {}
 
   findByUser(userId: string): Promise<InventoryItem[]> {
     return this.repository.findByUser(userId);
@@ -14,7 +18,13 @@ export class InventoryService {
     return this.repository.findById(id);
   }
 
-  create(data: Partial<InventoryItem>): Promise<InventoryItem> {
+  async create(data: Partial<InventoryItem>): Promise<InventoryItem> {
+    if (data.card) {
+      const existing = await this.cardService.findById(data.card.id);
+      if (!existing) {
+        await this.cardService.create(data.card as any);
+      }
+    }
     return this.repository.createAndSave(data);
   }
 
