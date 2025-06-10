@@ -10,7 +10,7 @@ export class WishlistItem {
   @ManyToOne(() => User, { eager: true })
   user: User;
 
-  @ManyToOne(() => Card, { eager: true, cascade: true })
+  @ManyToOne(() => Card, { eager: true })
   card: Card;
 
   @Column({ default: 1 })
