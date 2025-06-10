@@ -30,14 +30,15 @@ export class InventoryController {
 
   @Put(':id')
   update(
+    @Request() req,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() dto: UpdateInventoryItemDto,
   ) {
-    return this.inventoryService.update(id, dto);
+    return this.inventoryService.update(req.user.userId, id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.inventoryService.remove(id);
+  remove(@Request() req, @Param('id', new ParseUUIDPipe()) id: string) {
+    return this.inventoryService.remove(req.user.userId, id);
   }
 }
