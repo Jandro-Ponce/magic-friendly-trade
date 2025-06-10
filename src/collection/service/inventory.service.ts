@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InventoryItemRepository } from '../repository/inventory-item.repository';
 import { InventoryItem } from '../entity/inventory-item.entity';
 
@@ -18,11 +18,23 @@ export class InventoryService {
     return this.repository.createAndSave(data);
   }
 
-  update(id: string, data: Partial<InventoryItem>): Promise<InventoryItem> {
+  async update(
+    userId: string,
+    id: string,
+    data: Partial<InventoryItem>,
+  ): Promise<InventoryItem> {
+    const item = await this.repository.findById(id);
+    if (!item || item.user.id !== userId) {
+      throw new ForbiddenException();
+    }
     return this.repository.update(id, data);
   }
 
-  remove(id: string): Promise<void> {
+  async remove(userId: string, id: string): Promise<void> {
+    const item = await this.repository.findById(id);
+    if (!item || item.user.id !== userId) {
+      throw new ForbiddenException();
+    }
     return this.repository.remove(id);
   }
 }

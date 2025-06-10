@@ -36,15 +36,19 @@ describe('InventoryService', () => {
 
   it('should update an item', async () => {
     const item: any = { id: '1' };
+    repo.findById.mockResolvedValue({ id: '1', user: { id: 'user1' } } as any);
     repo.update.mockResolvedValue(item);
-    const result = await service.update('1', {});
+    const result = await service.update('user1', '1', {});
     expect(result).toBe(item);
+    expect(repo.findById).toHaveBeenCalledWith('1');
     expect(repo.update).toHaveBeenCalledWith('1', {});
   });
 
   it('should remove an item', async () => {
+    repo.findById.mockResolvedValue({ id: '1', user: { id: 'user1' } } as any);
     repo.remove.mockResolvedValue(undefined);
-    await service.remove('1');
+    await service.remove('user1', '1');
+    expect(repo.findById).toHaveBeenCalledWith('1');
     expect(repo.remove).toHaveBeenCalledWith('1');
   });
 });

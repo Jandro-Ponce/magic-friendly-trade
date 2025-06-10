@@ -30,14 +30,15 @@ export class WishlistController {
 
   @Put(':id')
   update(
+    @Request() req,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() dto: UpdateWishlistItemDto,
   ) {
-    return this.wishlistService.update(id, dto);
+    return this.wishlistService.update(req.user.userId, id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.wishlistService.remove(id);
+  remove(@Request() req, @Param('id', new ParseUUIDPipe()) id: string) {
+    return this.wishlistService.remove(req.user.userId, id);
   }
 }
