@@ -25,6 +25,7 @@ export class UserService {
   }
 
   async create(userData: CreateUserDto): Promise<User> {
+    const email = userData.email.toLowerCase()
     const existingUser = await this.userRepository.findByEmail(userData.email);
     if (existingUser) {
       throw new ConflictException('El correo electrónico ya está registrado. Por favor, usa otro.');
