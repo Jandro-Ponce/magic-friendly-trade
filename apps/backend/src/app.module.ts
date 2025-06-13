@@ -9,6 +9,7 @@ import { AppService } from 'src/app.service';
 import { UserModule } from './user/user.module';
 import { CardModule } from './card/card.module';
 import { CollectionModule } from './collection/collection.module';
+import { ProfileModule } from './me/profile/profile.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { CollectionModule } from './collection/collection.module';
     AuthModule,
     CardModule,
     CollectionModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
