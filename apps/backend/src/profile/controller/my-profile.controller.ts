@@ -27,7 +27,7 @@ export class MyProfileController {
     return GetUserProfileResponse.create(user);
   }
 
-  @Post('me/profile/upload-avatar')
+  @Post('me/profile[:]upload-avatar')
   @UseInterceptors(
     FileInterceptor('avatar', {
       storage: diskStorage({
