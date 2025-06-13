@@ -14,19 +14,20 @@ import { v4 as uuid } from 'uuid';
 import { UserService } from 'src/user/service/user.service';
 import { GetUserProfileResponse } from 'src/user/controller/response/get-user-profile.response';
 
+
 @UseGuards(AuthGuard('jwt'))
-@Controller('me/profile')
-export class ProfileController {
+@Controller()
+export class MyProfileController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
+  @Get('me/profile')
   async getProfile(@Request() req): Promise<GetUserProfileResponse> {
     const userId = req.user.userId;
     const user = await this.userService.findById(userId);
     return GetUserProfileResponse.create(user);
   }
 
-  @Post('upload-avatar')
+  @Post('me/profile/upload-avatar')
   @UseInterceptors(
     FileInterceptor('avatar', {
       storage: diskStorage({
