@@ -41,7 +41,7 @@ export function Login(props: LoginProps) {
       <Typography variant="h4" component="h1" gutterBottom>
         Login
       </Typography>
-      <Card variant="outlined">
+      <Card>
         <CardContent>
           <Box display="flex" flexDirection="column" gap={2}>
             <TextField
