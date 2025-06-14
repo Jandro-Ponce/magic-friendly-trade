@@ -7,4 +7,7 @@ export const darkTheme = createTheme({
       main: '#ffffff',
     },
   },
+  shape: {
+    borderRadius: 9999,
+  },
 })
