@@ -1,6 +1,15 @@
-import { useState } from "react";
-import "./App.css";
-import { login } from "./api";
+import { useState } from 'react'
+import {
+  Button,
+  Card,
+  CardContent,
+  Container,
+  TextField,
+  Typography,
+  Box,
+} from '@mui/material'
+import './App.css'
+import { login } from './api'
 
 
 export type AuthUser = {
@@ -28,31 +37,42 @@ export function Login(props: LoginProps) {
   }
 
   return (
-    <>
-      <h1>Login</h1>
-      <div className="card">
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => emailSet(e.target.value.toLowerCase())}
-          ></input>
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => passwordSet(e.target.value)}
-          ></input>
-          {
-            error && <span className="text-error">{error}</span>
-          }
-          
-          <button onClick={onclickHandler} disabled={!email || !password}>
-            Continue
-          </button>
-        </div>
-      </div>
-    </>
-  );
+    <Container maxWidth="sm">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Login
+      </Typography>
+      <Card>
+        <CardContent>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => emailSet(e.target.value.toLowerCase())}
+              fullWidth
+            />
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => passwordSet(e.target.value)}
+              fullWidth
+            />
+            {error && (
+              <Typography color="error" variant="body2">
+                {error}
+              </Typography>
+            )}
+            <Button
+              variant="contained"
+              onClick={onclickHandler}
+              disabled={!email || !password}
+            >
+              Continue
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Container>
+  )
 }
