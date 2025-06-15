@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -7,18 +7,17 @@ import {
   TextField,
   Typography,
   Box,
-} from '@mui/material'
-import './App.css'
-import { login } from './api'
-
+} from "@mui/material";
+import "./App.css";
+import { login } from "./api";
 
 export type AuthUser = {
-  access_token: string
-}
+  access_token: string;
+};
 
 type LoginProps = {
-  onUserLogin: (user: AuthUser) => void
-}
+  onUserLogin: (user: AuthUser) => void;
+};
 
 export function Login(props: LoginProps) {
   const [email, emailSet] = useState("");
@@ -26,24 +25,32 @@ export function Login(props: LoginProps) {
   const [error, errorSet] = useState("");
 
   async function onclickHandler() {
-    errorSet("")
+    errorSet("");
     try {
       const data = await login(email, password);
-      props.onUserLogin(data)
+      props.onUserLogin(data);
     } catch (ex) {
-      console.warn(ex)
+      console.warn(ex);
       errorSet("Login failed");
     }
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Typography variant="h4" component="h1" gutterBottom>
         Login
       </Typography>
-      <Card>
+      <Card sx={{ width: "100%" }}>
         <CardContent>
-          <Box display="flex" flexDirection="column" gap={2}>
+          <Box display="flex" flexDirection="column" gap={2} width="100%">
             <TextField
               label="Email"
               type="email"
@@ -74,5 +81,5 @@ export function Login(props: LoginProps) {
         </CardContent>
       </Card>
     </Container>
-  )
+  );
 }
