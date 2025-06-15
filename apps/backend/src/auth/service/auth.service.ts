@@ -44,14 +44,12 @@ export class AuthService {
         throw new BadRequestException('Usuario no encontrado');
       }
 
-      if (user.isEmailVerified) {
-        return { message: 'El correo ya ha sido verificado.' };
+      if (!user.isEmailVerified) {
+        user.isEmailVerified = true;
+        await this.userRepository.save(user);
       }
 
-      user.isEmailVerified = true;
-      await this.userRepository.save(user);
-
-      return { message: 'Correo verificado correctamente' };
+      return user;
     } catch (error) {
       throw new BadRequestException('Token inválido o expirado');
     }

@@ -29,10 +29,13 @@ export class AuthController {
       throw new BadRequestException('Token no proporcionado');
     }
 
-    await this.authService.verifyEmailToken(token);
-    
+    const user = await this.authService.verifyEmailToken(token);
+    const { access_token } = await this.authService.login(user);
+
     return {
-      url: this.configService.get('FRONTEND_URL') + '/auth/login?verified=true',
+      url:
+        this.configService.get('FRONTEND_URL') +
+        `/dashboard?token=${access_token}`,
     };
   }
 }
