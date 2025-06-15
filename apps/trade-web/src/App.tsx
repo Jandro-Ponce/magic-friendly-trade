@@ -53,6 +53,14 @@ function App() {
             }
           />
           <Route
+            path="/auth/verify-email"
+            element={<Navigate to={user ? '/dashboard' : '/login'} replace />}
+          />
+          <Route
+            path="*"
+            element={<Navigate to={user ? '/dashboard' : '/login'} replace />}
+          />
+          <Route
             path="/"
             element={<Navigate to={user ? '/dashboard' : '/login'} replace />}
           />
