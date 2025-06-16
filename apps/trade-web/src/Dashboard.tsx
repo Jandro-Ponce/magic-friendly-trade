@@ -48,7 +48,12 @@ export const Dashboard = ({ user }: DashboardProps) => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={() => setOpen(false)}
+        PaperProps={{ sx: { top: 64, height: "calc(100% - 64px)" } }}
+      >
         <Box sx={{ width: 250 }} role="presentation">
           <List>
             {menuItems.map((text) => (
