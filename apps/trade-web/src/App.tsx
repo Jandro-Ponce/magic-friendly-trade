@@ -33,7 +33,7 @@ function App() {
   }, [user])
 
   return (
-    <Container>
+    <Container maxWidth={false} disableGutters>
       <BrowserRouter>
         <Routes>
           <Route
