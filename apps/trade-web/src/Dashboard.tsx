@@ -34,7 +34,6 @@ export const Dashboard = ({ user }: DashboardProps) => {
         <Toolbar>
           <IconButton
             edge="start"
-            color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
             onClick={() => setOpen(!open)}
