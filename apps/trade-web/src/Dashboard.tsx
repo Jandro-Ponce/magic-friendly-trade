@@ -7,8 +7,6 @@ import {
   Toolbar,
   IconButton,
   Avatar,
-  Menu,
-  MenuItem,
   Drawer,
   List,
   ListItem,
@@ -35,7 +33,7 @@ type UserProfile = {
 export const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [profileDrawerOpen, setProfileDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,12 +42,8 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
       .catch((err) => console.warn(err));
   }, [user.access_token]);
 
-  const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleProfileDrawerClose = () => {
+    setProfileDrawerOpen(false);
   };
 
   const menuItems = [
@@ -76,22 +70,42 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
           <Typography variant="h6" component="div">
             Dashboard
           </Typography>
-          <Box sx={{ ml: "auto", display: "flex", alignItems: "center" }} onClick={handleMenuOpen} className="user-menu-button">
+          <Box
+            sx={{ ml: "auto", display: "flex", alignItems: "center" }}
+            onClick={() => setProfileDrawerOpen(true)}
+            className="user-menu-button"
+          >
             <Avatar src={profile?.avatar} sx={{ width: 32, height: 32, mr: 1 }} />
             <Typography>{profile?.firstName || profile?.username}</Typography>
           </Box>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleMenuClose();
-                onLogout();
-                navigate('/login', { replace: true });
-              }}
-            >
-              Cerrar sesión
-            </MenuItem>
-          </Menu>
+          <Drawer
+            anchor="right"
+            open={profileDrawerOpen}
+            onClose={handleProfileDrawerClose}
+            PaperProps={{ sx: { top: 64, height: 'auto' } }}
+            className="right-drawer"
+          >
+            <Box sx={{ width: 200 }} role="presentation">
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={handleProfileDrawerClose}>
+                    <ListItemText primary="Perfil" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      handleProfileDrawerClose();
+                      onLogout();
+                      navigate('/login', { replace: true });
+                    }}
+                  >
+                    <ListItemText primary="Cerrar sesión" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Box>
+          </Drawer>
         </Toolbar>
       </AppBar>
       <Drawer
