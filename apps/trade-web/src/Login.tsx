@@ -7,7 +7,10 @@ import {
   TextField,
   Typography,
   Box,
+  Link,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import FondoLogin from "./images/FondoLogin.png";
 import "./App.css";
 import { login } from "./api";
 
@@ -43,6 +46,9 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundImage: `url(${FondoLogin})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <Typography variant="h4" component="h1" gutterBottom>
@@ -77,6 +83,12 @@ export const Login = ({ onUserLogin }: LoginProps) => {
             >
               Continue
             </Button>
+            <Box display="flex" justifyContent="space-between">
+              <Link component={RouterLink} to="/forgot-password">
+                He olvidado la contraseña
+              </Link>
+              <Link component={RouterLink} to="/register">Registrarme</Link>
+            </Box>
           </Box>
         </CardContent>
       </Card>
