@@ -1,0 +1,28 @@
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 2px;
+  background-color: currentColor;
+  margin: 3px 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open .line1 {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.hamburger.open .line2 {
+  opacity: 0;
+}
+
+.hamburger.open .line3 {
+  transform: translateY(-5px) rotate(-45deg);
+}
