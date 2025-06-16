@@ -39,10 +39,10 @@ export const Login = ({ onUserLogin }: LoginProps) => {
   }
 
   return (
-    <Container
-      maxWidth="sm"
+    <Box
       sx={{
         minHeight: "100vh",
+        width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -51,11 +51,9 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         backgroundPosition: "center",
       }}
     >
-      <Typography variant="h4" component="h1" gutterBottom>
-        Login
-      </Typography>
-      <Card sx={{ width: "100%" }}>
-        <CardContent>
+      <Container maxWidth="sm">
+        <Card sx={{ width: "100%" }}>
+          <CardContent>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
             <TextField
               label="Email"
@@ -93,5 +91,6 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         </CardContent>
       </Card>
     </Container>
+  </Box>
   );
 };
