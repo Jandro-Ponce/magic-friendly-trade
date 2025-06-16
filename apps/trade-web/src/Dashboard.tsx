@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Container,
   AppBar,
   Toolbar,
   IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
   Drawer,
   List,
   ListItem,
@@ -13,14 +17,40 @@ import {
   Box,
 } from "@mui/material";
 import type { AuthUser } from "./Login";
+import { getProfile } from "./api";
 import "./Dashboard.css";
 
 type DashboardProps = {
   user: AuthUser;
+  onLogout: () => void;
 };
 
-export const Dashboard = ({ user }: DashboardProps) => {
+type UserProfile = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  avatar?: string;
+};
+
+export const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getProfile(user.access_token)
+      .then(setProfile)
+      .catch((err) => console.warn(err));
+  }, [user.access_token]);
+
+  const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const menuItems = [
     "Inventario",
@@ -46,6 +76,22 @@ export const Dashboard = ({ user }: DashboardProps) => {
           <Typography variant="h6" component="div">
             Dashboard
           </Typography>
+          <Box sx={{ ml: "auto", display: "flex", alignItems: "center" }} onClick={handleMenuOpen} className="user-menu-button">
+            <Avatar src={profile?.avatar} sx={{ width: 32, height: 32, mr: 1 }} />
+            <Typography>{profile?.firstName || profile?.username}</Typography>
+          </Box>
+          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleMenuClose();
+                onLogout();
+                navigate('/login', { replace: true });
+              }}
+            >
+              Cerrar sesión
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer

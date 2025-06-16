@@ -11,6 +11,10 @@ function App() {
     return stored ? { access_token: stored } : null
   })
 
+  const handleLogout = () => {
+    userSet(null)
+  }
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const token = params.get('token')
@@ -49,7 +53,11 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              user ? <Dashboard user={user} /> : <Navigate to="/login" replace />
+              user ? (
+                <Dashboard user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
             }
           />
           <Route

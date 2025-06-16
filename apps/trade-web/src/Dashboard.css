@@ -37,3 +37,7 @@
 .hamburger.open .line3 {
   transform: translateY(-5px) rotate(-45deg);
 }
+
+.user-menu-button {
+  cursor: pointer;
+}

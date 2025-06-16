@@ -12,6 +12,21 @@ function jsonFetch( input: string | URL | globalThis.Request, init?: RequestInit
     })
 
 }
+
+export async function getProfile(token: string) {
+  const response = await fetch(API_URL + "/me/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch profile');
+  }
+
+  return await response.json();
+}
 export async function login(email: string, password: string) {
   const response = await jsonFetch(API_URL + "/auth/login", {
     method: "POST",
