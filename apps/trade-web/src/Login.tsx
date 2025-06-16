@@ -19,7 +19,7 @@ type LoginProps = {
   onUserLogin: (user: AuthUser) => void;
 };
 
-export function Login(props: LoginProps) {
+export const Login = ({ onUserLogin }: LoginProps) => {
   const [email, emailSet] = useState("");
   const [password, passwordSet] = useState("");
   const [error, errorSet] = useState("");
@@ -28,7 +28,7 @@ export function Login(props: LoginProps) {
     errorSet("");
     try {
       const data = await login(email, password);
-      props.onUserLogin(data);
+      onUserLogin(data);
     } catch (ex) {
       console.warn(ex);
       errorSet("Login failed");
@@ -82,4 +82,4 @@ export function Login(props: LoginProps) {
       </Card>
     </Container>
   );
-}
+};
