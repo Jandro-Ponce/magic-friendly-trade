@@ -12,8 +12,8 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import type { AuthUser } from "./Login";
+import "./Dashboard.css";
 
 type DashboardProps = {
   user: AuthUser;
@@ -29,7 +29,7 @@ export const Dashboard = ({ user }: DashboardProps) => {
   ];
 
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -38,8 +38,11 @@ export const Dashboard = ({ user }: DashboardProps) => {
             aria-label="menu"
             sx={{ mr: 2 }}
             onClick={() => setOpen(true)}
+            className={open ? "hamburger open" : "hamburger"}
           >
-            <MenuIcon />
+            <span className="hamburger-line line1" />
+            <span className="hamburger-line line2" />
+            <span className="hamburger-line line3" />
           </IconButton>
           <Typography variant="h6" component="div">
             Dashboard
@@ -59,7 +62,7 @@ export const Dashboard = ({ user }: DashboardProps) => {
           </List>
         </Box>
       </Drawer>
-      <Container sx={{ mt: 2 }}>
+      <Container sx={{ mt: 2, flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom>
           Dashboard
         </Typography>
