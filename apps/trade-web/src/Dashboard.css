@@ -41,3 +41,9 @@
 .user-menu-button {
   cursor: pointer;
 }
+
+.right-drawer .MuiDrawer-paper {
+  top: 64px;
+  max-height: calc(100% - 64px);
+  overflow-y: auto;
+}
