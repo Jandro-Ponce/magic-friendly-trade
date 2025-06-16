@@ -37,7 +37,7 @@ export const Dashboard = ({ user }: DashboardProps) => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen(!open)}
             className={open ? "hamburger open" : "hamburger"}
           >
             <span className="hamburger-line line1" />
