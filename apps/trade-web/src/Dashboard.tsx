@@ -35,7 +35,7 @@ export const Dashboard = ({ user }: DashboardProps) => {
           <IconButton
             edge="start"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, borderRadius: 1, width: 32, height: 32, border: "1px solid", color: "whitesmoke", p: 0.5 }}
             onClick={() => setOpen(!open)}
             className={open ? "hamburger open" : "hamburger"}
           >
