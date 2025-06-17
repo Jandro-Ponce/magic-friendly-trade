@@ -52,8 +52,8 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         backgroundPosition: "center",
       }}
     >
-      <Container maxWidth="sm">
-        <Card sx={{ width: "100%" }}>
+      <Container sx={{ maxWidth: 360 }}>
+        <Card sx={{ backgroundColor: "rgba(0,0,0,0.6)", width: "100%" }}>
           <CardContent>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
             <TextField
