@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import FondoLogin from "./images/FondoLogin.png";
+import Logo from "./images/Logo.png";
 import "./App.css";
 import { login } from "./api";
 
@@ -63,9 +64,9 @@ export const Login = ({ onUserLogin }: LoginProps) => {
       >
         <Box sx={{ width: 280, mx: "auto", p: 3 }}>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
-            <Typography variant="h5" align="center">
-              Login
-            </Typography>
+            <Box textAlign="center">
+              <img src={Logo} alt="Magic Friendly Trade logo" style={{ maxWidth: "200px", width: "100%" }} />
+            </Box>
             <TextField
               label="Email"
               type="email"
