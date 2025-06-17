@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardContent,
-  Container,
   TextField,
   Typography,
   Box,
@@ -64,7 +63,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           bgcolor: "background.default",
         }}
       >
-        <Container sx={{ maxWidth: 300 }}>
+        <Box sx={{ width: 280, mx: "auto" }}>
           <Card sx={{ bgcolor: "background.paper", width: "100%" }}>
           <CardContent>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
@@ -106,7 +105,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           </Box>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
       </Box>
     </Box>
   );
