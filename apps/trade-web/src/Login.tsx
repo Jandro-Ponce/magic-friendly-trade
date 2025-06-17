@@ -47,7 +47,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         alignItems: "center",
         justifyContent: "center",
         backgroundImage: `url(${FondoLogin})`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
