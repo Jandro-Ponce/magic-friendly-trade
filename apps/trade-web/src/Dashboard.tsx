@@ -13,9 +13,12 @@ import {
   ListItemButton,
   ListItemText,
   Box,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import type { AuthUser } from "./Login";
-import { getProfile } from "./api";
+import { getProfile, searchCards } from "./api";
 import "./Dashboard.css";
 
 type DashboardProps = {
@@ -34,6 +37,8 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileDrawerOpen, setProfileDrawerOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<any[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +49,16 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
 
   const handleProfileDrawerClose = () => {
     setProfileDrawerOpen(false);
+  };
+
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    try {
+      const data = await searchCards(query.trim());
+      setResults(data.data || []);
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   const menuItems = [
@@ -127,10 +142,43 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
         </Box>
       </Drawer>
       <Container sx={{ mt: 2, flexGrow: 1 }}>
-        <Typography variant="h4" gutterBottom>
-          Dashboard
-        </Typography>
-        <Typography>Your token: {user.access_token}</Typography>
+        <Box display="flex" justifyContent="center" mb={2}>
+          <TextField
+            placeholder="Search cards"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearch();
+              }
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleSearch} edge="end">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ maxWidth: 400, width: '100%' }}
+          />
+        </Box>
+        <Box>
+          {results.map((card) => (
+            <Box
+              key={card.id}
+              sx={{ mb: 1, p: 1, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
+            >
+              <Typography>{card.name}</Typography>
+              {card.set_name && (
+                <Typography variant="caption" color="text.secondary">
+                  {card.set_name}
+                </Typography>
+              )}
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
