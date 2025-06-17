@@ -75,6 +75,18 @@ export async function registerUser(data: {
   return await response.json();
 }
 
+export async function searchCards(query: string) {
+  const response = await fetch(
+    `${API_URL}/cards/search?q=${encodeURIComponent(query)}`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to search cards');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {
