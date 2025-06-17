@@ -52,10 +52,13 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         backgroundPosition: "center",
       }}
     >
-      <Container sx={{ maxWidth: 360 }}>
+      <Container sx={{ maxWidth: 300 }}>
         <Card sx={{ backgroundColor: "rgba(0,0,0,0.6)", width: "100%" }}>
           <CardContent>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
+            <Typography variant="h5" align="center">
+              Login
+            </Typography>
             <TextField
               label="Email"
               type="email"
