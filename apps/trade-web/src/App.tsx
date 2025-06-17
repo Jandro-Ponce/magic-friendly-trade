@@ -3,7 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Container } from '@mui/material'
 import './App.css'
 import { Login, type AuthUser } from './Login'
-import {Dashboard} from './Dashboard'
+import { Dashboard } from './Dashboard'
+import Register from './Register'
 
 function App() {
   const [user, userSet] = useState<AuthUser | null>(() => {
@@ -48,6 +49,12 @@ function App() {
               ) : (
                 <Navigate to="/dashboard" replace />
               )
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              !user ? <Register /> : <Navigate to="/dashboard" replace />
             }
           />
           <Route
