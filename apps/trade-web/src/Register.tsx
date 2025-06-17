@@ -4,6 +4,7 @@ import {
   Button,
   TextField,
   Typography,
+  Link,
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import RegistroImg from "./images/Registro.png";
@@ -106,9 +107,9 @@ export const Register = () => {
               </Typography>
             )}
             <Box display="flex" justifyContent="space-between" mt={1}>
-              <Button component={RouterLink} to="/login" variant="outlined">
+              <Link component={RouterLink} to="/login" sx={{ fontSize: "0.8rem" }}>
                 Atrás
-              </Button>
+              </Link>
               <Button variant="contained" onClick={handleRegister} disabled={disabled}>
                 Registrarme
               </Button>
