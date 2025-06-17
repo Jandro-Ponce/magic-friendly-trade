@@ -49,21 +49,30 @@ export type CreateUserDto = {
   password: string;
   firstName: string;
   lastName: string;
+  avatar?: string;
 };
 
-export async function registerUser(user: CreateUserDto) {
+export async function registerUser(data: {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  avatar?: string;
+}) {
   const response = await jsonFetch(API_URL + "/users", {
     method: "POST",
-    payload: user,
+    payload: data,
   });
 
-  const data = await response.json();
-
-  if (response.status !== 201) {
-    throw Error(Array.isArray(data.message) ? data.message.join(", ") : data.message);
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(
+      Array.isArray(result.message) ? result.message.join(", ") : result.message
+    );
   }
 
-  return data;
+  return await response.json();
 }
 
 export function authApi(token: string) {
