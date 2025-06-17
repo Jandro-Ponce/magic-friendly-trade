@@ -1,8 +1,6 @@
 import { useState } from "react";
 import {
   Button,
-  Card,
-  CardContent,
   TextField,
   Typography,
   Box,
@@ -63,9 +61,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           bgcolor: "background.default",
         }}
       >
-        <Box sx={{ width: 280, mx: "auto" }}>
-          <Card sx={{ bgcolor: "background.paper", width: "100%" }}>
-          <CardContent>
+        <Box sx={{ width: 280, mx: "auto", p: 3 }}>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
             <Typography variant="h5" align="center">
               Login
@@ -103,8 +99,6 @@ export const Login = ({ onUserLogin }: LoginProps) => {
               <Link component={RouterLink} to="/register">Registrarme</Link>
             </Box>
           </Box>
-        </CardContent>
-      </Card>
     </Box>
       </Box>
     </Box>
