@@ -44,16 +44,28 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         minHeight: "100vh",
         width: "100%",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundImage: `url(${FondoLogin})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
       }}
     >
-      <Container sx={{ maxWidth: 300 }}>
-        <Card sx={{ backgroundColor: "rgba(0,0,0,0.6)", width: "100%" }}>
+      <Box
+        sx={{
+          flex: 1,
+          backgroundImage: `url(${FondoLogin})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      />
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f5f5f5",
+        }}
+      >
+        <Container sx={{ maxWidth: 300 }}>
+          <Card sx={{ backgroundColor: "rgba(255,255,255,0.9)", width: "100%" }}>
           <CardContent>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
             <Typography variant="h5" align="center">
@@ -95,6 +107,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         </CardContent>
       </Card>
     </Container>
-  </Box>
+      </Box>
+    </Box>
   );
 };
