@@ -165,19 +165,34 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
           />
         </Box>
         <Box>
-          {results.map((card) => (
-            <Box
-              key={card.id}
-              sx={{ mb: 1, p: 1, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
-            >
-              <Typography>{card.name}</Typography>
-              {card.set_name && (
-                <Typography variant="caption" color="text.secondary">
-                  {card.set_name}
-                </Typography>
-              )}
-            </Box>
-          ))}
+          {results.map((card) => {
+            const imgSrc =
+              card.image_uris?.small ||
+              card.card_faces?.[0]?.image_uris?.small ||
+              null;
+
+            return (
+              <Box
+                key={card.id}
+                sx={{ mb: 1, p: 1, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
+              >
+                {imgSrc && (
+                  <Box
+                    component="img"
+                    src={imgSrc}
+                    alt={card.name}
+                    sx={{ display: 'block', maxWidth: 146, width: '100%', mb: 1 }}
+                  />
+                )}
+                <Typography>{card.name}</Typography>
+                {card.set_name && (
+                  <Typography variant="caption" color="text.secondary">
+                    {card.set_name}
+                  </Typography>
+                )}
+              </Box>
+            );
+          })}
         </Box>
       </Container>
     </Box>
