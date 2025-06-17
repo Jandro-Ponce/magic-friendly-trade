@@ -94,10 +94,12 @@ export const Login = ({ onUserLogin }: LoginProps) => {
               Continue
             </Button>
             <Box display="flex" justifyContent="space-between">
-              <Link component={RouterLink} to="/forgot-password">
-                He olvidado la contraseña
+              <Link component={RouterLink} to="/forgot-password" sx={{ fontSize: "0.8rem" }}>
+                ¿Has olvidado la contraseña?
               </Link>
-              <Link component={RouterLink} to="/register">Registrarme</Link>
+              <Link component={RouterLink} to="/register" sx={{ fontSize: "0.8rem" }}>
+                Regístrate
+              </Link>
             </Box>
           </Box>
     </Box>
