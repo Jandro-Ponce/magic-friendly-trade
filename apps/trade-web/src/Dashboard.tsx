@@ -186,7 +186,9 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                     borderColor: 'divider',
                     borderRadius: 1,
                     maxWidth: 180,
+                    maxHeight: 250,
                     width: '100%',
+                    overflow: 'hidden',
                   }}
                 >
                 {imgSrc && (
