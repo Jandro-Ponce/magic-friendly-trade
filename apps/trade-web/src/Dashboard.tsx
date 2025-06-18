@@ -182,11 +182,10 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                   key={card.id}
                   sx={{
                     mb: 1,
-                    p: 1,
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 1,
-                    maxWidth: 200,
+                    maxWidth: 180,
                     width: '100%',
                   }}
                 >
@@ -195,14 +194,8 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                     component="img"
                     src={imgSrc}
                     alt={card.name}
-                    sx={{ display: 'block', maxWidth: 146, width: '100%', mb: 1 }}
+                    sx={{ display: 'block', maxWidth: 180, width: '100%' }}
                   />
-                )}
-                <Typography>{card.name}</Typography>
-                {card.set_name && (
-                  <Typography variant="caption" color="text.secondary">
-                    {card.set_name}
-                  </Typography>
                 )}
               </Box>
             );
