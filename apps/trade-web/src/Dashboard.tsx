@@ -164,18 +164,32 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
             sx={{ maxWidth: 400, width: '100%' }}
           />
         </Box>
-        <Box>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 1,
+          }}
+        >
           {results.map((card) => {
             const imgSrc =
               card.image_uris?.small ||
               card.card_faces?.[0]?.image_uris?.small ||
               null;
 
-            return (
-              <Box
-                key={card.id}
-                sx={{ mb: 1, p: 1, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
-              >
+              return (
+                <Box
+                  key={card.id}
+                  sx={{
+                    mb: 1,
+                    p: 1,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 1,
+                    maxWidth: 200,
+                    width: '100%',
+                  }}
+                >
                 {imgSrc && (
                   <Box
                     component="img"
