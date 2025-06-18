@@ -155,7 +155,13 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={handleSearch} edge="end">
+                  <IconButton
+                    onClick={handleSearch}
+                    edge="end"
+                    disableRipple
+                    disableFocusRipple
+                    sx={{ '&:focus': { outline: 'none' } }}
+                  >
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
@@ -168,7 +174,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
           sx={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 0.5,
+            gap: 0.25,
           }}
         >
           {results.map((card) => {
@@ -181,12 +187,12 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                 <Box
                   key={card.id}
                   sx={{
-                    mb: 0.5,
+                    mb: 0.25,
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 1,
-                    maxWidth: 200,
-                    maxHeight: 280,
+                    maxWidth: 240,
+                    maxHeight: 336,
                     width: '100%',
                     overflow: 'hidden',
                   }}
@@ -196,7 +202,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                     component="img"
                     src={imgSrc}
                     alt={card.name}
-                    sx={{ display: 'block', maxWidth: 200, width: '100%' }}
+                    sx={{ display: 'block', maxWidth: 240, width: '100%' }}
                   />
                 )}
               </Box>
