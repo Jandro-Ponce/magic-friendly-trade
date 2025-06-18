@@ -168,7 +168,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
           sx={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 1,
+            gap: 0.5,
           }}
         >
           {results.map((card) => {
@@ -181,12 +181,12 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                 <Box
                   key={card.id}
                   sx={{
-                    mb: 1,
+                    mb: 0.5,
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 1,
-                    maxWidth: 180,
-                    maxHeight: 250,
+                    maxWidth: 200,
+                    maxHeight: 280,
                     width: '100%',
                     overflow: 'hidden',
                   }}
@@ -196,7 +196,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
                     component="img"
                     src={imgSrc}
                     alt={card.name}
-                    sx={{ display: 'block', maxWidth: 180, width: '100%' }}
+                    sx={{ display: 'block', maxWidth: 200, width: '100%' }}
                   />
                 )}
               </Box>
