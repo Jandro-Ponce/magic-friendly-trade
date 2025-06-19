@@ -30,12 +30,17 @@ export const Login = ({ onUserLogin }: LoginProps) => {
   const [password, passwordSet] = useState("");
   const [error, errorSet] = useState("");
   const [showVerifyPopup, setShowVerifyPopup] = useState(false);
+  const [verifyEmailAddress, setVerifyEmailAddress] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (params.get("verifyEmail") === "1") {
       setShowVerifyPopup(true);
+      if (params.get("email")) {
+        setVerifyEmailAddress(params.get("email") || "");
+      }
       params.delete("verifyEmail");
+      params.delete("email");
       const url = location.pathname;
       const newSearch = params.toString();
       const newUrl = newSearch ? `${url}?${newSearch}` : url;
@@ -129,7 +134,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         <DialogTitle>Verifica tu correo</DialogTitle>
         <DialogContent>
           <Typography>
-            Te hemos enviado un correo de confirmación. Revisa tu bandeja de entrada para activar tu cuenta.
+            Te hemos enviado un correo de confirmación a {verifyEmailAddress}. Revisa tu bandeja de entrada para activar tu cuenta.
           </Typography>
         </DialogContent>
         <DialogActions>
