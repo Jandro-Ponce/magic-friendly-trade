@@ -110,7 +110,7 @@ export const Register = () => {
                       disableFocusRipple
                       sx={{ '&:focus': { outline: 'none' } }}
                     >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -132,7 +132,7 @@ export const Register = () => {
                       disableFocusRipple
                       sx={{ '&:focus': { outline: 'none' } }}
                     >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),
