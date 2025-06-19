@@ -32,6 +32,10 @@
 $ npm install
 ```
 
+### Environment Variables
+
+Configura un archivo `.env` en este directorio basándote en el archivo `.env.example` incluido. Asegúrte de definir `BACKEND_URL` con la URL pública donde se desplegará el backend.
+
 ## Running the app
 
 ```bash

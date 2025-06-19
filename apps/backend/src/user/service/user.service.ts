@@ -47,8 +47,8 @@ export class UserService {
         expiresIn: '1h',
       },
     );
-    const frontendUrl = this.configService.get('FRONTEND_URL');
-    const verificationLink = `${frontendUrl}/auth/verify-email?token=${token}`;
+    const backendUrl = this.configService.get('BACKEND_URL');
+    const verificationLink = `${backendUrl}/auth/verify-email?token=${token}`;
 
     await this.mailService.sendMail({
       to: user.email,
