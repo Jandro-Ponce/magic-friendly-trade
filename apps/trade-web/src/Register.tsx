@@ -5,7 +5,11 @@ import {
   TextField,
   Typography,
   Link,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import RegistroImg from "./images/Registro.png";
 import Logo from "./images/Logo.png";
@@ -16,6 +20,9 @@ export const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
@@ -23,10 +30,20 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const disabled = !username || !email || !password || !firstName || !lastName;
+  const disabled =
+    !username ||
+    !email ||
+    !password ||
+    !confirmPassword ||
+    !firstName ||
+    !lastName;
 
   async function handleRegister() {
     setError("");
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
     try {
       await registerUser({ username, email, password, firstName, lastName });
       setMessage("Te enviamos un correo para verificar tu cuenta");
@@ -79,10 +96,47 @@ export const Register = () => {
             />
             <TextField
               label="Contraseña"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword((v) => !v)}
+                      edge="end"
+                      disableRipple
+                      disableFocusRipple
+                      sx={{ '&:focus': { outline: 'none' } }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              label="Repite la contraseña"
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowConfirmPassword((v) => !v)}
+                      edge="end"
+                      disableRipple
+                      disableFocusRipple
+                      sx={{ '&:focus': { outline: 'none' } }}
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               label="Nombre"
