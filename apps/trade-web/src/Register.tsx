@@ -45,9 +45,9 @@ export const Register = () => {
         sx={{
           flex: 1,
           backgroundImage: `url(${RegistroImg})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          backgroundPosition: "left center",
         }}
       />
       <Box
