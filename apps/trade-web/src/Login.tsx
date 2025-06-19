@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextField,
   Typography,
   Box,
   Link,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogActions,
 } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import FondoLogin from "./images/FondoLogin.png";
 import Logo from "./images/Logo.png";
 import "./App.css";
@@ -21,9 +25,23 @@ type LoginProps = {
 };
 
 export const Login = ({ onUserLogin }: LoginProps) => {
+  const location = useLocation();
   const [email, emailSet] = useState("");
   const [password, passwordSet] = useState("");
   const [error, errorSet] = useState("");
+  const [showVerifyPopup, setShowVerifyPopup] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("verifyEmail") === "1") {
+      setShowVerifyPopup(true);
+      params.delete("verifyEmail");
+      const url = location.pathname;
+      const newSearch = params.toString();
+      const newUrl = newSearch ? `${url}?${newSearch}` : url;
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, [location]);
 
   async function onclickHandler() {
     errorSet("");
@@ -104,6 +122,20 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           </Box>
     </Box>
       </Box>
+      <Dialog
+        open={showVerifyPopup}
+        onClose={() => setShowVerifyPopup(false)}
+      >
+        <DialogTitle>Verifica tu correo</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Te hemos enviado un correo de confirmación. Revisa tu bandeja de entrada para activar tu cuenta.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowVerifyPopup(false)}>Entendido</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
