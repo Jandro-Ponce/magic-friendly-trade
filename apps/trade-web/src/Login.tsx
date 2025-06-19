@@ -48,7 +48,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
         sx={{
           flex: 1,
           backgroundImage: `url(${FondoLogin})`,
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
