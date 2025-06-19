@@ -83,11 +83,44 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
             <span className="hamburger-line line2" />
             <span className="hamburger-line line3" />
           </IconButton>
-          <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img
               src={Logo}
               alt="Magic Friendly Trade logo"
-              style={{ height: 32 }}
+              style={{ height: 48 }}
+            />
+            <TextField
+              placeholder="Search cards"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleSearch}
+                      edge="end"
+                      disableRipple
+                      disableFocusRipple
+                      sx={{ "&:focus": { outline: "none" } }}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ maxWidth: 400, width: "100%", ml: 2 }}
             />
           </Box>
           <Box
@@ -147,34 +180,6 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
         </Box>
       </Drawer>
       <Container sx={{ mt: 2, flexGrow: 1 }}>
-        <Box display="flex" justifyContent="center" mb={2}>
-          <TextField
-            placeholder="Search cards"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSearch();
-              }
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleSearch}
-                    edge="end"
-                    disableRipple
-                    disableFocusRipple
-                    sx={{ '&:focus': { outline: 'none' } }}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ maxWidth: 400, width: '100%' }}
-          />
-        </Box>
         <Box
           sx={{
             display: 'grid',
