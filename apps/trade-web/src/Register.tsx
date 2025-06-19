@@ -30,7 +30,7 @@ export const Register = () => {
     try {
       await registerUser({ username, email, password, firstName, lastName });
       setMessage("Te enviamos un correo para verificar tu cuenta");
-      setTimeout(() => navigate("/login"), 500);
+      setTimeout(() => navigate("/login?verifyEmail=1"), 500);
     } catch (ex) {
       console.warn(ex);
       setError("Registro fallido");
