@@ -189,8 +189,8 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
         >
           {results.map((card) => {
             const imgSrc =
-              card.image_uris?.small ||
-              card.card_faces?.[0]?.image_uris?.small ||
+              card.image_uris?.normal ||
+              card.card_faces?.[0]?.image_uris?.normal ||
               null;
 
               return (
