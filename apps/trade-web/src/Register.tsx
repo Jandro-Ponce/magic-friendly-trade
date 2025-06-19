@@ -26,7 +26,6 @@ export const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -46,7 +45,6 @@ export const Register = () => {
     }
     try {
       await registerUser({ username, email, password, firstName, lastName });
-      setMessage("Te enviamos un correo para verificar tu cuenta");
       setTimeout(() => navigate("/login?verifyEmail=1"), 500);
     } catch (ex) {
       console.warn(ex);
@@ -153,11 +151,6 @@ export const Register = () => {
             {error && (
               <Typography color="error" variant="body2">
                 {error}
-              </Typography>
-            )}
-            {message && (
-              <Typography color="primary" variant="body2">
-                {message}
               </Typography>
             )}
             <Box display="flex" justifyContent="space-between" mt={1}>
