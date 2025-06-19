@@ -17,6 +17,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import Logo from "./images/Logo.png";
 import type { AuthUser } from "./Login";
 import { getProfile, searchCards } from "./api";
 import "./Dashboard.css";
@@ -82,16 +83,20 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
             <span className="hamburger-line line2" />
             <span className="hamburger-line line3" />
           </IconButton>
-          <Typography variant="h6" component="div">
-            Dashboard
-          </Typography>
+          <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+            <img
+              src={Logo}
+              alt="Magic Friendly Trade logo"
+              style={{ height: 32 }}
+            />
+          </Box>
           <Box
             sx={{ ml: "auto", display: "flex", alignItems: "center" }}
             onClick={() => setProfileDrawerOpen(true)}
             className="user-menu-button"
           >
             <Avatar src={profile?.avatar} sx={{ width: 32, height: 32, mr: 1 }} />
-            <Typography>{profile?.firstName || profile?.username}</Typography>
+            <Typography>{profile?.username}</Typography>
           </Box>
           <Drawer
             anchor="right"
