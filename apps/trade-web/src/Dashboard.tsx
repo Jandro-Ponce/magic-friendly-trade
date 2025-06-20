@@ -55,7 +55,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const handleSearch = async () => {
     if (!query.trim()) return;
     try {
-      const data = await searchCards(query.trim());
+      const data = await searchCards(query.trim(), 'es');
       setResults(data.data || []);
     } catch (err) {
       console.warn(err);
