@@ -74,6 +74,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
+          display: { xs: "none", sm: "block" },
         }}
       />
       <Box
@@ -85,7 +86,7 @@ export const Login = ({ onUserLogin }: LoginProps) => {
           bgcolor: "background.default",
         }}
       >
-        <Box sx={{ width: 280, mx: "auto", p: 3 }}>
+        <Box sx={{ width: { xs: "100%", sm: 280 }, maxWidth: 280, mx: "auto", p: 3 }}>
           <Box display="flex" flexDirection="column" gap={2} width="100%">
             <Box textAlign="center">
               <img src={Logo} alt="Magic Friendly Trade logo" style={{ maxWidth: "200px", width: "100%" }} />
