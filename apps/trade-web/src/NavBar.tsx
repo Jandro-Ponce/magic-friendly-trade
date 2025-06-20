@@ -86,7 +86,13 @@ export const NavBar = ({ user, onLogout }: NavBarProps) => {
             justifyContent: "center",
           }}
         >
-          <img src={Logo} alt="Magic Friendly Trade logo" style={{ height: 48 }} />
+          <img
+            src={Logo}
+            alt="Magic Friendly Trade logo"
+            style={{ height: 48 }}
+            className="logo"
+            onClick={() => navigate('/dashboard')}
+          />
           <TextField
             placeholder="Search cards"
             value={query}
