@@ -27,18 +27,21 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <NavBar user={user} onLogout={onLogout} />
-      <Container sx={{ mt: 2, flexGrow: 1, textAlign: 'left' }}>
+      <Container sx={{ mt: 2, flexGrow: 1, textAlign: 'center' }}>
         {card ? (
           <>
-            <Typography variant="h4" sx={{ mb: 2, textAlign: 'left' }}>
+            <Typography variant="h4" sx={{ mb: 2, textAlign: 'center' }}>
               {card.name}
             </Typography>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', sm: 'row' },
-                alignItems: { xs: 'flex-start', sm: 'center' },
+                alignItems: 'center',
+                justifyContent: 'center',
                 gap: 2,
+                width: 'fit-content',
+                mx: 'auto',
               }}
             >
               {imgSrc && (
