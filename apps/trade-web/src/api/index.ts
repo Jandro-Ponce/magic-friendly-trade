@@ -77,7 +77,8 @@ export async function registerUser(data: {
 
 export async function searchCards(query: string, lang = 'es') {
   const url = new URL(`${API_URL}/cards/search`);
-  url.searchParams.set('q', query);
+  const searchQuery = lang && lang !== 'en' ? `${lang}:${query}` : query;
+  url.searchParams.set('q', searchQuery);
   if (lang) {
     url.searchParams.set('lang', lang);
   }

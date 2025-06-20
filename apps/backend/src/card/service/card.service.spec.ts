@@ -30,7 +30,7 @@ describe('CardService', () => {
     const result = await service.search('test', 'es');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://api.scryfall.com/cards/search?q=test&lang=es',
+      'https://api.scryfall.com/cards/search?q=es:test&lang=es',
     );
     expect(result).toEqual(data);
   });
