@@ -4,6 +4,7 @@ import { Container } from '@mui/material'
 import './App.css'
 import { Login, type AuthUser } from './Login'
 import { Dashboard } from './Dashboard'
+import { SearchResults } from './SearchResults'
 import Register from './Register'
 
 function App() {
@@ -62,6 +63,16 @@ function App() {
             element={
               user ? (
                 <Dashboard user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              user ? (
+                <SearchResults user={user} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" replace />
               )
