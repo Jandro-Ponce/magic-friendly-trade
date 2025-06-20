@@ -5,6 +5,7 @@ import './App.css'
 import { Login, type AuthUser } from './Login'
 import { Dashboard } from './Dashboard'
 import { SearchResults } from './SearchResults'
+import { CardDetails } from './CardDetails'
 import Register from './Register'
 
 function App() {
@@ -73,6 +74,16 @@ function App() {
             element={
               user ? (
                 <SearchResults user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/cards/:id"
+            element={
+              user ? (
+                <CardDetails user={user} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" replace />
               )
