@@ -15,4 +15,14 @@ export class CardService {
 
     return response.json();
   }
+
+  async getById(id: string): Promise<any> {
+    const response = await fetch(`${this.apiUrl}/cards/${id}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch card');
+    }
+
+    return response.json();
+  }
 }

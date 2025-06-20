@@ -87,6 +87,16 @@ export async function searchCards(query: string) {
   return await response.json();
 }
 
+export async function getCard(id: string) {
+  const response = await fetch(`${API_URL}/cards/${encodeURIComponent(id)}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch card');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {

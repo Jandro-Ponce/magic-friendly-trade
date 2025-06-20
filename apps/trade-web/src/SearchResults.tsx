@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Container, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import NavBar from "./NavBar";
@@ -13,6 +13,7 @@ type SearchResultsProps = {
 
 export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [results, setResults] = useState<any[]>([]);
   const [query, setQuery] = useState("");
 
@@ -63,7 +64,9 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   maxHeight: 336,
                   width: '100%',
                   overflow: 'hidden',
+                  cursor: 'pointer',
                 }}
+                onClick={() => navigate(`/cards/${card.id}`)}
               >
                 {imgSrc && (
                   <Box
