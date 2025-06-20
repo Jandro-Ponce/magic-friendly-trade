@@ -6,7 +6,8 @@ export class CardService {
 
   async search(query: string, lang = 'en'): Promise<any> {
     const url = new URL(`${this.apiUrl}/cards/search`);
-    url.searchParams.set('q', query);
+    const searchQuery = lang && lang !== 'en' ? `${lang}:${query}` : query;
+    url.searchParams.set('q', searchQuery);
     if (lang) {
       url.searchParams.set('lang', lang);
     }
