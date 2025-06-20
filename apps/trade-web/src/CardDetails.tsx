@@ -27,10 +27,10 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <NavBar user={user} onLogout={onLogout} />
-      <Container sx={{ mt: 2, flexGrow: 1 }}>
+      <Container sx={{ mt: 2, flexGrow: 1, textAlign: 'left' }}>
         {card ? (
           <>
-            <Typography variant="h4" sx={{ mb: 2 }}>
+            <Typography variant="h4" sx={{ mb: 2, textAlign: 'left' }}>
               {card.name}
             </Typography>
             <Box
@@ -50,13 +50,13 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
                 />
               )}
               <Box>
-                <Typography sx={{ mb: 1 }}>
+                <Typography sx={{ mb: 1, textAlign: 'left' }}>
                   <strong>Costo de maná:</strong> {card.mana_cost}
                 </Typography>
-                <Typography sx={{ mb: 1 }}>
+                <Typography sx={{ mb: 1, textAlign: 'left' }}>
                   <strong>Tipo:</strong> {card.type_line}
                 </Typography>
-                <Typography sx={{ whiteSpace: 'pre-line' }}>
+                <Typography sx={{ whiteSpace: 'pre-line', textAlign: 'left', maxWidth: '60ch' }}>
                   <strong>Texto:</strong> {card.oracle_text}
                 </Typography>
               </Box>
