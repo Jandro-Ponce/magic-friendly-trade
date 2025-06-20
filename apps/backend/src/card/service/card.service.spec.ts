@@ -27,10 +27,10 @@ describe('CardService', () => {
       json: jest.fn().mockResolvedValue(data),
     } as any);
 
-    const result = await service.search('test');
+    const result = await service.search('test', 'es');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://api.scryfall.com/cards/search?q=test',
+      'https://api.scryfall.com/cards/search?q=test&lang=es',
     );
     expect(result).toEqual(data);
   });
