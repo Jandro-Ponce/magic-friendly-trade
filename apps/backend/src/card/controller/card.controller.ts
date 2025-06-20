@@ -6,7 +6,7 @@ export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @Get('search')
-  search(@Query('q') query: string, @Query('lang') lang = 'en') {
-    return this.cardService.search(query, lang);
+  search(@Query('q') query: string) {
+    return this.cardService.search(query);
   }
 }
