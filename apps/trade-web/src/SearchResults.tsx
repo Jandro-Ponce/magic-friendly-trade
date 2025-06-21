@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
@@ -56,26 +56,51 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
               <Box
                 key={card.id}
                 sx={{
-                  mb: 0.25,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
+                  mb: 0.5,
                   maxWidth: 240,
-                  maxHeight: 336,
                   width: '100%',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
                 }}
-                onClick={() => navigate(`/cards/${card.id}`)}
               >
-                {imgSrc && (
-                  <Box
-                    component="img"
-                    src={imgSrc}
-                    alt={card.name}
-                    sx={{ display: 'block', maxWidth: 240, width: '100%' }}
-                  />
-                )}
+                <Box
+                  sx={{
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 1,
+                    maxWidth: 240,
+                    maxHeight: 336,
+                    width: '100%',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => navigate(`/cards/${card.id}`)}
+                >
+                  {imgSrc && (
+                    <Box
+                      component="img"
+                      src={imgSrc}
+                      alt={card.name}
+                      sx={{ display: 'block', maxWidth: 240, width: '100%' }}
+                    />
+                  )}
+                </Box>
+                <Box
+                  sx={{
+                    mt: 0.5,
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  <Button size="small" variant="contained">
+                    La quiero
+                  </Button>
+                  <Button size="small" variant="outlined">
+                    La tengo
+                  </Button>
+                </Box>
               </Box>
             );
           })}
