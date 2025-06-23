@@ -44,7 +44,8 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
           sx={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 0.25,
+            columnGap: 0.25,
+            rowGap: 1,
           }}
         >
           {results.map((card) => {
@@ -94,11 +95,35 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                     justifyContent: 'space-around',
                   }}
                 >
-                  <Button size="small" variant="contained">
-                    La quiero
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{
+                      textTransform: 'none',
+                      borderRadius: 2,
+                      boxShadow: 1,
+                      transition: 'transform 0.15s ease-in-out',
+                      '&:active': {
+                        transform: 'scale(0.95)',
+                      },
+                    }}
+                  >
+                    Compro
                   </Button>
-                  <Button size="small" variant="outlined">
-                    La tengo
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      textTransform: 'none',
+                      borderRadius: 2,
+                      boxShadow: 1,
+                      transition: 'transform 0.15s ease-in-out',
+                      '&:active': {
+                        transform: 'scale(0.95)',
+                      },
+                    }}
+                  >
+                    Vendo
                   </Button>
                 </Box>
               </Box>
