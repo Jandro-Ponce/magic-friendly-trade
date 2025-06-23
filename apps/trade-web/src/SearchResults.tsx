@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Container, Typography, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import SellIcon from "@mui/icons-material/Sell";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
 import { searchCards } from "./api";
@@ -98,13 +100,14 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   <Button
                     size="small"
                     variant="contained"
+                    color="success"
+                    startIcon={<AddShoppingCartIcon />}
                     sx={{
                       textTransform: 'none',
-                      borderRadius: 2,
-                      boxShadow: 1,
-                      transition: 'transform 0.15s ease-in-out',
-                      '&:active': {
-                        transform: 'scale(0.95)',
+                      borderRadius: 3,
+                      boxShadow: 2,
+                      '&:hover': {
+                        boxShadow: 3,
                       },
                     }}
                   >
@@ -113,13 +116,14 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   <Button
                     size="small"
                     variant="outlined"
+                    color="warning"
+                    startIcon={<SellIcon />}
                     sx={{
                       textTransform: 'none',
-                      borderRadius: 2,
+                      borderRadius: 3,
                       boxShadow: 1,
-                      transition: 'transform 0.15s ease-in-out',
-                      '&:active': {
-                        transform: 'scale(0.95)',
+                      '&:hover': {
+                        boxShadow: 2,
                       },
                     }}
                   >
