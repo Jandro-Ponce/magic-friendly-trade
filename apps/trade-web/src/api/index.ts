@@ -87,14 +87,24 @@ export async function searchCards(query: string) {
   return await response.json();
 }
 
-export async function getCard(id: string) {
+export interface CardWithEditions {
+  editions: any[];
+  [key: string]: any;
+}
+
+/**
+ * Fetch a single card from the backend along with all available editions.
+ * The returned object matches the Scryfall card schema and adds an
+ * `editions` array containing the different printings.
+ */
+export async function getCard(id: string): Promise<CardWithEditions> {
   const response = await fetch(`${API_URL}/cards/${encodeURIComponent(id)}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch card');
   }
 
-  return await response.json();
+  return (await response.json()) as CardWithEditions;
 }
 
 export function authApi(token: string) {
