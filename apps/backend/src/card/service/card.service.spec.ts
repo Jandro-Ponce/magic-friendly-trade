@@ -37,7 +37,13 @@ describe('CardService', () => {
 
   it('should fetch card and its prints', async () => {
     const card = { prints_search_uri: 'http://example.com/cards/search?q=a' };
-    const prints = { data: [{ id: 1 }] };
+    const prints = {
+      data: [
+        { id: 1, set_name: 'A', lang: 'es' },
+        { id: 2, set_name: 'A', lang: 'en' },
+        { id: 3, set_name: 'B', lang: 'de' },
+      ],
+    };
     const fetchMock = jest
       .spyOn(global, 'fetch')
       .mockResolvedValueOnce({
@@ -59,6 +65,9 @@ describe('CardService', () => {
       2,
       'http://example.com/cards/search?q=a&include_multilingual=true',
     );
-    expect(result).toEqual({ ...card, editions: prints.data });
+    expect(result).toEqual({
+      ...card,
+      editions: [prints.data[1], prints.data[2]],
+    });
   });
 });

@@ -41,7 +41,15 @@ export class CardService {
       }
 
       const prints = await printsResponse.json();
-      card.editions = prints.data;
+      const editions: Record<string, any> = {};
+      for (const ed of prints.data ?? []) {
+        const key = ed.set_name;
+        const existing = editions[key];
+        if (!existing || (existing.lang !== 'en' && ed.lang === 'en')) {
+          editions[key] = ed;
+        }
+      }
+      card.editions = Object.values(editions);
     }
 
     return card;
