@@ -24,6 +24,26 @@ export class CardService {
       throw new Error('Failed to fetch card');
     }
 
-    return response.json();
+    const card = await response.json();
+
+    let printsUrl: string = card.prints_search_uri;
+
+    if (printsUrl && !printsUrl.includes('include_multilingual=')) {
+      printsUrl += (printsUrl.includes('?') ? '&' : '?') +
+        'include_multilingual=true';
+    }
+
+    if (printsUrl) {
+      const printsResponse = await fetch(printsUrl);
+
+      if (!printsResponse.ok) {
+        throw new Error('Failed to fetch card prints');
+      }
+
+      const prints = await printsResponse.json();
+      card.editions = prints.data;
+    }
+
+    return card;
   }
 }

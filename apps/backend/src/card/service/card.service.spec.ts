@@ -30,8 +30,35 @@ describe('CardService', () => {
     const result = await service.search('test');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://api.scryfall.com/cards/search?q=test',
+      'https://api.scryfall.com/cards/search?q=test&include_multilingual=true',
     );
     expect(result).toEqual(data);
+  });
+
+  it('should fetch card and its prints', async () => {
+    const card = { prints_search_uri: 'http://example.com/cards/search?q=a' };
+    const prints = { data: [{ id: 1 }] };
+    const fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValue(card),
+      } as any)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValue(prints),
+      } as any);
+
+    const result = await service.getById('123');
+
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      'https://api.scryfall.com/cards/123',
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      'http://example.com/cards/search?q=a&include_multilingual=true',
+    );
+    expect(result).toEqual({ ...card, editions: prints.data });
   });
 });
