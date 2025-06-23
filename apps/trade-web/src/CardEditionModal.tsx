@@ -45,7 +45,9 @@ export const CardEditionModal = ({
         >
           {editions.map((ed, idx) => {
             const imgSrc =
-              ed.image_uris?.small || ed.card_faces?.[0]?.image_uris?.small || null
+              ed.image_uris?.normal ||
+              ed.card_faces?.[0]?.image_uris?.normal ||
+              null
             return (
               <Box
                 key={ed.id ?? idx}
@@ -56,8 +58,8 @@ export const CardEditionModal = ({
                   borderWidth: selectedIndex === idx ? 2 : 1,
                   borderRadius: 0,
                   cursor: 'pointer',
-                  width: 120,
-                  height: 168,
+                  width: 240,
+                  height: 336,
                   overflow: 'hidden',
                 }}
                 onClick={() => setSelectedIndex(idx)}
