@@ -6,7 +6,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import SellIcon from "@mui/icons-material/Sell";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
-import { searchCards } from "./api";
+import CardEditionModal from "./CardEditionModal";
+import { searchCards, getCard, type CardWithEditions } from "./api";
 
 type SearchResultsProps = {
   user: AuthUser;
@@ -18,6 +19,9 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
   const navigate = useNavigate();
   const [results, setResults] = useState<any[]>([]);
   const [query, setQuery] = useState("");
+  const [selectedCard, setSelectedCard] = useState<CardWithEditions | null>(null);
+  const [editionOpen, setEditionOpen] = useState(false);
+  const [selectedEdition, setSelectedEdition] = useState<any | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -110,6 +114,15 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                         boxShadow: 3,
                       },
                     }}
+                    onClick={async () => {
+                      try {
+                        const cardData = await getCard(card.id);
+                        setSelectedCard(cardData);
+                        setEditionOpen(true);
+                      } catch (err) {
+                        console.warn(err);
+                      }
+                    }}
                   >
                     Compro
                   </Button>
@@ -135,6 +148,15 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
           })}
         </Box>
       </Container>
+      <CardEditionModal
+        open={editionOpen}
+        editions={selectedCard?.editions ?? []}
+        onClose={() => setEditionOpen(false)}
+        onConfirm={(ed) => {
+          setSelectedEdition(ed);
+          setEditionOpen(false);
+        }}
+      />
     </Box>
   );
 };
