@@ -21,7 +21,13 @@ describe('CardService', () => {
   });
 
   it('should fetch cards from scryfall', async () => {
-    const data = { data: [] };
+    const data = {
+      data: [
+        { id: 1, set_name: 'A', lang: 'en' },
+        { id: 2, set_name: 'A', lang: 'es' },
+        { id: 3, set_name: 'B', lang: 'en' },
+      ],
+    };
     const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
       ok: true,
       json: jest.fn().mockResolvedValue(data),
@@ -32,12 +38,20 @@ describe('CardService', () => {
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.scryfall.com/cards/search?q=test&include_multilingual=true',
     );
-    expect(result).toEqual(data);
+    expect(result.data).toEqual([
+      { id: 1, set_name: 'A', lang: 'en' },
+      { id: 3, set_name: 'B', lang: 'en' },
+    ]);
   });
 
   it('should fetch card and its prints', async () => {
     const card = { prints_search_uri: 'http://example.com/cards/search?q=a' };
-    const prints = { data: [{ id: 1 }] };
+    const prints = {
+      data: [
+        { id: 1, set_name: 'A', lang: 'en' },
+        { id: 2, set_name: 'A', lang: 'es' },
+      ],
+    };
     const fetchMock = jest
       .spyOn(global, 'fetch')
       .mockResolvedValueOnce({
@@ -59,6 +73,9 @@ describe('CardService', () => {
       2,
       'http://example.com/cards/search?q=a&include_multilingual=true',
     );
-    expect(result).toEqual({ ...card, editions: prints.data });
+    expect(result).toEqual({
+      ...card,
+      editions: [{ id: 1, set_name: 'A', lang: 'en' }],
+    });
   });
 });
