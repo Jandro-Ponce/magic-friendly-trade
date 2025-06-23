@@ -14,7 +14,19 @@ export class CardService {
       throw new Error('Failed to fetch cards');
     }
 
-    return response.json();
+    const result = await response.json();
+
+    if (Array.isArray(result?.data)) {
+      const unique: Record<string, any> = {};
+      result.data.forEach((card: any) => {
+        if (card.lang === 'en' && !unique[card.set_name]) {
+          unique[card.set_name] = card;
+        }
+      });
+      result.data = Object.values(unique);
+    }
+
+    return result;
   }
 
   async getById(id: string): Promise<any> {
@@ -41,7 +53,18 @@ export class CardService {
       }
 
       const prints = await printsResponse.json();
-      card.editions = prints.data;
+
+      if (Array.isArray(prints?.data)) {
+        const unique: Record<string, any> = {};
+        prints.data.forEach((ed: any) => {
+          if (ed.lang === 'en' && !unique[ed.set_name]) {
+            unique[ed.set_name] = ed;
+          }
+        });
+        card.editions = Object.values(unique);
+      } else {
+        card.editions = prints.data;
+      }
     }
 
     return card;
