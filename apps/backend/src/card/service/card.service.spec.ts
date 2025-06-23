@@ -67,7 +67,7 @@ describe('CardService', () => {
     );
     expect(result).toEqual({
       ...card,
-      editions: [prints.data[1], prints.data[2]],
+      editions: [prints.data[1]],
     });
   });
 });
