@@ -54,10 +54,10 @@ export const CardEditionModal = ({
                   borderColor:
                     selectedIndex === idx ? 'primary.main' : 'divider',
                   borderWidth: selectedIndex === idx ? 2 : 1,
-                  borderRadius: 1,
+                  borderRadius: 0,
                   cursor: 'pointer',
-                  width: 80,
-                  height: 112,
+                  width: 120,
+                  height: 168,
                   overflow: 'hidden',
                 }}
                 onClick={() => setSelectedIndex(idx)}
