@@ -18,6 +18,10 @@ export class InventoryItemRepository {
     return this.repository.findOne({ where: { id } });
   }
 
+  findByCard(cardId: string): Promise<InventoryItem[]> {
+    return this.repository.find({ where: { card: { id: cardId } } });
+  }
+
   async createAndSave(data: Partial<InventoryItem>): Promise<InventoryItem> {
     const item = this.repository.create(data);
     return this.repository.save(item);
