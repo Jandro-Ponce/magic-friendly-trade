@@ -33,8 +33,9 @@ export const CardEditionModal = ({
 }: CardEditionModalProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [addToWishlist, setAddToWishlist] = useState(false)
-  const [language, setLanguage] = useState('EN')
+  const [language, setLanguage] = useState('indiferente')
   const LANGUAGES = [
+    'indiferente',
     'EN',
     'ES',
     'FR',
@@ -106,17 +107,21 @@ export const CardEditionModal = ({
               <Checkbox
                 checked={addToWishlist}
                 onChange={(e) => setAddToWishlist(e.target.checked)}
+                color="success"
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
               />
             }
             label="Agregar a mi lista de deseos"
           />
-          <FormControl size="small">
+          <FormControl size="small" sx={{ minWidth: 160 }}>
             <InputLabel id="language-label">Idioma</InputLabel>
             <Select
               labelId="language-label"
               value={language}
               label="Idioma"
               onChange={(e) => setLanguage(e.target.value as string)}
+              color="success"
+              sx={{ textTransform: 'capitalize' }}
             >
               {LANGUAGES.map((lang) => (
                 <MenuItem key={lang} value={lang}>
