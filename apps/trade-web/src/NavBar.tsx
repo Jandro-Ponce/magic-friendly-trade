@@ -62,7 +62,11 @@ export const NavBar = ({ user, onLogout }: NavBarProps) => {
     navigate(`/search?q=${encodeURIComponent(query.trim())}`);
   };
 
-  const menuItems = ["Inventario", "Lista de deseos", "Notificaciones"];
+  const menuItems = [
+    { text: "Inventario", path: "/inventory" },
+    { text: "Lista de deseos", path: "/wishlist" },
+    { text: "Notificaciones", path: "/notifications" },
+  ];
 
   return (
     <AppBar position="static">
@@ -165,9 +169,14 @@ export const NavBar = ({ user, onLogout }: NavBarProps) => {
       >
         <Box sx={{ width: 250 }} role="presentation">
           <List>
-            {menuItems.map((text) => (
+            {menuItems.map(({ text, path }) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton onClick={() => setOpen(false)}>
+                <ListItemButton
+                  onClick={() => {
+                    setOpen(false);
+                    navigate(path);
+                  }}
+                >
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>
