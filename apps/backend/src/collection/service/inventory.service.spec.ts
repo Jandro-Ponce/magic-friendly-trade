@@ -12,6 +12,7 @@ describe('InventoryService', () => {
     const repoMock: jest.Mocked<InventoryItemRepository> = {
       findByUser: jest.fn(),
       findById: jest.fn(),
+      findByCard: jest.fn(),
       createAndSave: jest.fn(),
       update: jest.fn(),
       remove: jest.fn(),

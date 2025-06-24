@@ -7,7 +7,12 @@ import SellIcon from "@mui/icons-material/Sell";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
 import CardEditionModal from "./CardEditionModal";
-import { searchCards, getCard, type CardWithEditions } from "./api";
+import {
+  searchCards,
+  getCard,
+  type CardWithEditions,
+  findSellers,
+} from "./api";
 
 type SearchResultsProps = {
   user: AuthUser;
@@ -152,9 +157,28 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         open={editionOpen}
         editions={selectedCard?.editions ?? []}
         onClose={() => setEditionOpen(false)}
-        onConfirm={(_ed, _wishlist, _language, _quantity) => {
+        onConfirm={async (_ed, _wishlist, _language, _quantity) => {
           setSelectedEdition(_ed);
           setEditionOpen(false);
+          try {
+            await findSellers(
+              {
+                cardId: _ed.id,
+                cardName: selectedCard?.name ?? '',
+                imageUrl:
+                  _ed.image_uris?.normal ||
+                  _ed.card_faces?.[0]?.image_uris?.normal ||
+                  '',
+                language: _language,
+                quantity: _quantity === 'indiferente' ? 1 : (_quantity as number),
+                addToWishlist: _wishlist,
+              },
+              user.access_token,
+            );
+            navigate(`/cards/${_ed.id}`);
+          } catch (err) {
+            console.warn(err);
+          }
         }}
       />
     </Box>

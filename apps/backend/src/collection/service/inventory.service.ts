@@ -18,6 +18,10 @@ export class InventoryService {
     return this.repository.findById(id);
   }
 
+  findByCard(cardId: string): Promise<InventoryItem[]> {
+    return this.repository.findByCard(cardId);
+  }
+
   async create(data: Partial<InventoryItem>): Promise<InventoryItem> {
     if (data.card) {
       const existing = await this.cardService.findById(data.card.id);

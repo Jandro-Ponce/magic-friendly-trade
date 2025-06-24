@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Container, Typography } from '@mui/material'
+import {
+  Box,
+  Container,
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material'
 import NavBar from './NavBar'
 import type { AuthUser } from './Login'
-import { getCard } from './api'
+import { getCard, getSellers } from './api'
 
 export type CardDetailsProps = {
   user: AuthUser
@@ -13,6 +22,7 @@ export type CardDetailsProps = {
 export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   const { id } = useParams()
   const [card, setCard] = useState<any | null>(null)
+  const [sellers, setSellers] = useState<any[]>([])
 
   useEffect(() => {
     if (!id) return
@@ -20,6 +30,13 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
       .then(setCard)
       .catch((err) => console.warn(err))
   }, [id])
+
+  useEffect(() => {
+    if (!id) return
+    getSellers(id, user.access_token)
+      .then(setSellers)
+      .catch((err) => console.warn(err))
+  }, [id, user.access_token])
 
   const imgSrc =
     card?.image_uris?.normal || card?.card_faces?.[0]?.image_uris?.normal || null
@@ -63,6 +80,32 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
                   <strong>Texto:</strong> {card.oracle_text}
                 </Typography>
               </Box>
+            </Box>
+            <Box sx={{ mt: 4 }}>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Usuario</TableCell>
+                    <TableCell>Foil</TableCell>
+                    <TableCell>Firmada</TableCell>
+                    <TableCell>Comentario</TableCell>
+                    <TableCell>Cantidad</TableCell>
+                    <TableCell>Idioma</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {sellers.map((s) => (
+                    <TableRow key={s.id}>
+                      <TableCell>{s.user?.username}</TableCell>
+                      <TableCell>No</TableCell>
+                      <TableCell>No</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell>{s.quantity}</TableCell>
+                      <TableCell>indiferente</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </Box>
           </>
         ) : (

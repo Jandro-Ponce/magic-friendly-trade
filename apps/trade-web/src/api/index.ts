@@ -107,6 +107,42 @@ export async function getCard(id: string): Promise<CardWithEditions> {
   return (await response.json()) as CardWithEditions;
 }
 
+export async function findSellers(
+  data: {
+    cardId: string;
+    cardName: string;
+    imageUrl?: string;
+    language: string;
+    quantity: number;
+    addToWishlist: boolean;
+  },
+  token: string,
+) {
+  const response = await jsonFetch(API_URL + "/inventory/find-sellers", {
+    method: "POST",
+    payload: data,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to find sellers");
+  }
+
+  return await response.json();
+}
+
+export async function getSellers(cardId: string, token: string) {
+  const response = await fetch(`${API_URL}/inventory/card/${encodeURIComponent(cardId)}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch sellers');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {
