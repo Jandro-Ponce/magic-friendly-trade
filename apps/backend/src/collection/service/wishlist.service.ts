@@ -1,10 +1,14 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { WishlistItemRepository } from '../repository/wishlist-item.repository';
 import { WishlistItem } from '../entity/wishlist-item.entity';
+import { CardService } from './card.service';
 
 @Injectable()
 export class WishlistService {
-  constructor(private readonly repository: WishlistItemRepository) {}
+  constructor(
+    private readonly repository: WishlistItemRepository,
+    private readonly cardService: CardService,
+  ) {}
 
   findByUser(userId: string): Promise<WishlistItem[]> {
     return this.repository.findByUser(userId);
@@ -14,7 +18,13 @@ export class WishlistService {
     return this.repository.findById(id);
   }
 
-  create(data: Partial<WishlistItem>): Promise<WishlistItem> {
+  async create(data: Partial<WishlistItem>): Promise<WishlistItem> {
+    if (data.card) {
+      const existing = await this.cardService.findById(data.card.id);
+      if (!existing) {
+        await this.cardService.create(data.card as any);
+      }
+    }
     return this.repository.createAndSave(data);
   }
 

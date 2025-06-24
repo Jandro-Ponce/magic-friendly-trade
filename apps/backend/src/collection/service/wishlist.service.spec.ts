@@ -1,10 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WishlistService } from './wishlist.service';
 import { WishlistItemRepository } from '../repository/wishlist-item.repository';
+import { CardService } from './card.service';
 
 describe('WishlistService', () => {
   let service: WishlistService;
   let repo: jest.Mocked<WishlistItemRepository>;
+  let card: jest.Mocked<CardService>;
 
   beforeEach(async () => {
     const repoMock: jest.Mocked<WishlistItemRepository> = {
@@ -15,23 +17,33 @@ describe('WishlistService', () => {
       remove: jest.fn(),
     } as any;
 
+    const cardMock: jest.Mocked<CardService> = {
+      findById: jest.fn(),
+      create: jest.fn(),
+    } as any;
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         WishlistService,
         { provide: WishlistItemRepository, useValue: repoMock },
+        { provide: CardService, useValue: cardMock },
       ],
     }).compile();
 
     service = module.get<WishlistService>(WishlistService);
     repo = module.get(WishlistItemRepository);
+    card = module.get(CardService);
   });
 
   it('should create an item', async () => {
     const item: any = { id: '1' };
     repo.createAndSave.mockResolvedValue(item);
-    const result = await service.create({});
+    card.findById.mockResolvedValue(null);
+    const result = await service.create({ card: { id: 'card1' } } as any);
     expect(result).toBe(item);
     expect(repo.createAndSave).toHaveBeenCalled();
+    expect(card.findById).toHaveBeenCalledWith('card1');
+    expect(card.create).toHaveBeenCalled();
   });
 
   it('should update an item', async () => {
