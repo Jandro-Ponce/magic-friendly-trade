@@ -152,7 +152,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         open={editionOpen}
         editions={selectedCard?.editions ?? []}
         onClose={() => setEditionOpen(false)}
-        onConfirm={(_ed, _wishlist, _language) => {
+        onConfirm={(_ed, _wishlist, _language, _quantity) => {
           setSelectedEdition(_ed);
           setEditionOpen(false);
         }}

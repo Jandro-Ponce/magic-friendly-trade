@@ -14,6 +14,8 @@ import {
   MenuItem,
 } from '@mui/material'
 
+export type Quantity = 'indiferente' | 1 | 2 | 3 | 4
+
 export type CardEditionModalProps = {
   open: boolean
   editions: any[]
@@ -21,7 +23,8 @@ export type CardEditionModalProps = {
   onConfirm?: (
     edition: any,
     addToWishlist: boolean,
-    language: string
+    language: string,
+    quantity: Quantity
   ) => void
 }
 
@@ -34,6 +37,7 @@ export const CardEditionModal = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [addToWishlist, setAddToWishlist] = useState(false)
   const [language, setLanguage] = useState('indiferente')
+  const [quantity, setQuantity] = useState<Quantity>('indiferente')
   const LANGUAGES = [
     'indiferente',
     'EN',
@@ -47,10 +51,11 @@ export const CardEditionModal = ({
     'RU',
     'ZH',
   ]
+  const QUANTITIES: Quantity[] = ['indiferente', 1, 2, 3, 4]
 
   const handleConfirm = () => {
     if (selectedIndex != null && onConfirm) {
-      onConfirm(editions[selectedIndex], addToWishlist, language)
+      onConfirm(editions[selectedIndex], addToWishlist, language, quantity)
     }
     onClose()
   }
@@ -144,6 +149,24 @@ export const CardEditionModal = ({
                 {LANGUAGES.map((lang) => (
                   <MenuItem key={lang} value={lang}>
                     {lang}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl size="small" sx={{ minWidth: 120 }}>
+              <InputLabel id="quantity-label">Cantidad</InputLabel>
+              <Select
+                labelId="quantity-label"
+                value={quantity}
+                label="Cantidad"
+                onChange={(e) =>
+                  setQuantity(e.target.value as Quantity)
+                }
+                color="success"
+              >
+                {QUANTITIES.map((qt) => (
+                  <MenuItem key={qt} value={qt}>
+                    {qt}
                   </MenuItem>
                 ))}
               </Select>
