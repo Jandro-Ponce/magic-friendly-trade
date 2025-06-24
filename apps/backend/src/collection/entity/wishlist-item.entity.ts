@@ -19,6 +19,4 @@ export class WishlistItem {
   @Column({ default: 'indiferente' })
   language: string;
 
-  @Column({ default: false })
-  addToWishlist: boolean;
 }

@@ -26,7 +26,6 @@ export class WishlistController {
       } as any,
       desiredQuantity: dto.desiredQuantity,
       language: dto.language,
-      addToWishlist: dto.addToWishlist,
     });
   }
 

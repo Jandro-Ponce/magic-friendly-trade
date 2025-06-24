@@ -56,7 +56,6 @@ export class InventoryController {
         } as any,
         desiredQuantity: dto.quantity,
         language: dto.language,
-        addToWishlist: true,
       });
     }
     return this.inventoryService.findByCard(dto.cardId);

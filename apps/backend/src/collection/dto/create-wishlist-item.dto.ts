@@ -4,5 +4,4 @@ export class CreateWishlistItemDto {
   cardName: string;
   imageUrl?: string;
   language: string;
-  addToWishlist: boolean;
 }
