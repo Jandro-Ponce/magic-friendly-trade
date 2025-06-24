@@ -13,6 +13,9 @@ export class WishlistItem {
   @ManyToOne(() => Card, { eager: true })
   card: Card;
 
+  @Column({ nullable: true })
+  imageUrl?: string;
+
   @Column({ default: 1 })
   desiredQuantity: number;
 

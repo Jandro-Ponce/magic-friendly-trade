@@ -54,6 +54,7 @@ export class InventoryController {
           name: dto.cardName,
           imageUrl: dto.imageUrl,
         } as any,
+        imageUrl: dto.imageUrl,
         desiredQuantity: dto.quantity,
         language: dto.language,
       });
