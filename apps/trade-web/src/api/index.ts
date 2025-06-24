@@ -143,6 +143,18 @@ export async function getSellers(cardId: string, token: string) {
   return await response.json();
 }
 
+export async function getWishlist(token: string) {
+  const response = await fetch(API_URL + "/wishlist", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch wishlist');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {
