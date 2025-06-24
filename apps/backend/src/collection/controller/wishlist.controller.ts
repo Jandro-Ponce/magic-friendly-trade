@@ -24,6 +24,7 @@ export class WishlistController {
         name: dto.cardName,
         imageUrl: dto.imageUrl,
       } as any,
+      imageUrl: dto.imageUrl,
       desiredQuantity: dto.desiredQuantity,
       language: dto.language,
     });
