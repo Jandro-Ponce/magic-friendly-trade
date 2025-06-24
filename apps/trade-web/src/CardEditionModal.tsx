@@ -6,13 +6,23 @@ import {
   DialogActions,
   Button,
   Box,
+  FormControlLabel,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 
 export type CardEditionModalProps = {
   open: boolean
   editions: any[]
   onClose: () => void
-  onConfirm?: (edition: any) => void
+  onConfirm?: (
+    edition: any,
+    addToWishlist: boolean,
+    language: string
+  ) => void
 }
 
 export const CardEditionModal = ({
@@ -22,10 +32,24 @@ export const CardEditionModal = ({
   onConfirm,
 }: CardEditionModalProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [addToWishlist, setAddToWishlist] = useState(false)
+  const [language, setLanguage] = useState('EN')
+  const LANGUAGES = [
+    'EN',
+    'ES',
+    'FR',
+    'DE',
+    'IT',
+    'PT',
+    'JA',
+    'KO',
+    'RU',
+    'ZH',
+  ]
 
   const handleConfirm = () => {
     if (selectedIndex != null && onConfirm) {
-      onConfirm(editions[selectedIndex])
+      onConfirm(editions[selectedIndex], addToWishlist, language)
     }
     onClose()
   }
@@ -75,6 +99,32 @@ export const CardEditionModal = ({
               </Box>
             )
           })}
+        </Box>
+        <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={addToWishlist}
+                onChange={(e) => setAddToWishlist(e.target.checked)}
+              />
+            }
+            label="Agregar a mi lista de deseos"
+          />
+          <FormControl size="small">
+            <InputLabel id="language-label">Idioma</InputLabel>
+            <Select
+              labelId="language-label"
+              value={language}
+              label="Idioma"
+              onChange={(e) => setLanguage(e.target.value as string)}
+            >
+              {LANGUAGES.map((lang) => (
+                <MenuItem key={lang} value={lang}>
+                  {lang}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
       </DialogContent>
       <DialogActions sx={{ p: 2 }}>

@@ -152,8 +152,8 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         open={editionOpen}
         editions={selectedCard?.editions ?? []}
         onClose={() => setEditionOpen(false)}
-        onConfirm={(ed) => {
-          setSelectedEdition(ed);
+        onConfirm={(_ed, _wishlist, _language) => {
+          setSelectedEdition(_ed);
           setEditionOpen(false);
         }}
       />
