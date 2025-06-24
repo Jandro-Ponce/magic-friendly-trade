@@ -175,9 +175,10 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
               },
               user.access_token,
             );
-            navigate(`/cards/${_ed.id}`);
           } catch (err) {
             console.warn(err);
+          } finally {
+            navigate(`/cards/${_ed.id}`);
           }
         }}
       />
