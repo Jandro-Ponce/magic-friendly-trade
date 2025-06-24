@@ -3,4 +3,6 @@ export class CreateWishlistItemDto {
   desiredQuantity: number;
   cardName: string;
   imageUrl?: string;
+  language: string;
+  addToWishlist: boolean;
 }

@@ -15,4 +15,10 @@ export class WishlistItem {
 
   @Column({ default: 1 })
   desiredQuantity: number;
+
+  @Column({ default: 'indiferente' })
+  language: string;
+
+  @Column({ default: false })
+  addToWishlist: boolean;
 }

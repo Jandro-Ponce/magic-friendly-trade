@@ -25,6 +25,8 @@ export class WishlistController {
         imageUrl: dto.imageUrl,
       } as any,
       desiredQuantity: dto.desiredQuantity,
+      language: dto.language,
+      addToWishlist: dto.addToWishlist,
     });
   }
 
