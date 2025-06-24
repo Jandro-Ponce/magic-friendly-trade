@@ -101,46 +101,69 @@ export const CardEditionModal = ({
             )
           })}
         </Box>
-        <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={addToWishlist}
-                onChange={(e) => setAddToWishlist(e.target.checked)}
-                color="success"
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
-              />
-            }
-            label="Agregar a mi lista de deseos"
-          />
-          <FormControl size="small" sx={{ minWidth: 160 }}>
-            <InputLabel id="language-label">Idioma</InputLabel>
-            <Select
-              labelId="language-label"
-              value={language}
-              label="Idioma"
-              onChange={(e) => setLanguage(e.target.value as string)}
-              color="success"
-              sx={{ textTransform: 'capitalize' }}
-            >
-              {LANGUAGES.map((lang) => (
-                <MenuItem key={lang} value={lang}>
-                  {lang}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
       </DialogContent>
-      <DialogActions sx={{ p: 2 }}>
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={handleConfirm}
-          disabled={selectedIndex === null}
+      <DialogActions
+        sx={{
+          p: 2,
+          position: 'sticky',
+          bottom: 0,
+          backgroundColor: 'background.paper',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            gap: 2,
+          }}
         >
-          Buscar Vendedores
-        </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={addToWishlist}
+                  onChange={(e) => setAddToWishlist(e.target.checked)}
+                  color="success"
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                />
+              }
+              label="Agregar a mi lista de deseos"
+            />
+            <FormControl size="small" sx={{ minWidth: 160 }}>
+              <InputLabel id="language-label">Idioma</InputLabel>
+              <Select
+                labelId="language-label"
+                value={language}
+                label="Idioma"
+                onChange={(e) => setLanguage(e.target.value as string)}
+                color="success"
+                sx={{ textTransform: 'capitalize' }}
+              >
+                {LANGUAGES.map((lang) => (
+                  <MenuItem key={lang} value={lang}>
+                    {lang}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{
+              textTransform: 'none',
+              borderRadius: 3,
+              boxShadow: 2,
+              '&:hover': { boxShadow: 3 },
+            }}
+            onClick={handleConfirm}
+            disabled={selectedIndex === null}
+          >
+            Buscar Vendedores
+          </Button>
+        </Box>
       </DialogActions>
     </Dialog>
   )
