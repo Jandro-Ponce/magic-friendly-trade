@@ -9,11 +9,16 @@ import {
   TableCell,
   TableBody,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  Button,
 } from '@mui/material'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
+import DeleteIcon from '@mui/icons-material/Delete'
 import NavBar from './NavBar'
 import type { AuthUser } from './Login'
-import { getWishlist } from './api'
+import { getWishlist, deleteWishlistItem } from './api'
 
 export type WishlistProps = {
   user: AuthUser
@@ -22,6 +27,7 @@ export type WishlistProps = {
 
 export const Wishlist = ({ user, onLogout }: WishlistProps) => {
   const [items, setItems] = useState<any[]>([])
+  const [deleteId, setDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
     getWishlist(user.access_token)
@@ -43,6 +49,7 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
               <TableCell>Nombre</TableCell>
               <TableCell>Cantidad</TableCell>
               <TableCell>Idioma</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,10 +79,42 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
                 <TableCell sx={{ textTransform: 'capitalize' }}>
                   {item.language}
                 </TableCell>
+                <TableCell>
+                  <DeleteIcon
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => setDeleteId(item.id)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        <Dialog open={Boolean(deleteId)} onClose={() => setDeleteId(null)}>
+          <DialogTitle>
+            ¿Estás seguro de que quieres eliminar esta carta?
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={() => setDeleteId(null)}>Cancelar</Button>
+            <Button
+              onClick={async () => {
+                if (deleteId) {
+                  try {
+                    await deleteWishlistItem(deleteId, user.access_token)
+                    setItems(items.filter((it) => it.id !== deleteId))
+                  } catch (err) {
+                    console.warn(err)
+                  } finally {
+                    setDeleteId(null)
+                  }
+                }
+              }}
+              color="error"
+              variant="contained"
+            >
+              Sí
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </Box>
   )

@@ -155,6 +155,17 @@ export async function getWishlist(token: string) {
   return await response.json();
 }
 
+export async function deleteWishlistItem(id: string, token: string) {
+  const response = await fetch(`${API_URL}/wishlist/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete wishlist item');
+  }
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {
