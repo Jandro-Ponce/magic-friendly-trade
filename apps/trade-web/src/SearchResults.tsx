@@ -26,7 +26,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
   const [query, setQuery] = useState("");
   const [selectedCard, setSelectedCard] = useState<CardWithEditions | null>(null);
   const [editionOpen, setEditionOpen] = useState(false);
-  const [selectedEdition, setSelectedEdition] = useState<any | null>(null);
+  const [ setSelectedEdition] = useState<any | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

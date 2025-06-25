@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -13,30 +13,31 @@ import {
   DialogTitle,
   DialogActions,
   Button,
-} from '@mui/material'
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
-import DeleteIcon from '@mui/icons-material/Delete'
-import NavBar from './NavBar'
-import type { AuthUser } from './Login'
-import { getWishlist, deleteWishlistItem } from './api'
+} from "@mui/material";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import DeleteIcon from "@mui/icons-material/Delete";
+import NavBar from "./NavBar";
+import type { AuthUser } from "./Login";
+import { getWishlist, deleteWishlistItem } from "./api";
+import { styled } from "@mui/material/styles";
 
 export type WishlistProps = {
-  user: AuthUser
-  onLogout: () => void
-}
+  user: AuthUser;
+  onLogout: () => void;
+};
 
 export const Wishlist = ({ user, onLogout }: WishlistProps) => {
-  const [items, setItems] = useState<any[]>([])
-  const [deleteId, setDeleteId] = useState<string | null>(null)
+  const [items, setItems] = useState<any[]>([]);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     getWishlist(user.access_token)
       .then(setItems)
-      .catch((err) => console.warn(err))
-  }, [user.access_token])
+      .catch((err) => console.warn(err));
+  }, [user.access_token]);
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <NavBar user={user} onLogout={onLogout} />
       <Container sx={{ mt: 2, flexGrow: 1 }}>
         <Typography variant="h6" sx={{ mb: 2 }}>
@@ -64,11 +65,16 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
                           component="img"
                           src={item.imageUrl}
                           alt={item.card?.name}
-                          sx={{ maxWidth: 200 }}
+                          sx={{
+                            maxWidth: 200,
+                            backgroundColor: "black",
+                            borderRadius: "6px",
+                            border: "6px solid black",
+                          }}
                         />
                       }
                     >
-                      <PhotoCameraIcon sx={{ cursor: 'pointer' }} />
+                      <PhotoCameraIcon sx={{ cursor: "pointer" }} />
                     </Tooltip>
                   ) : (
                     <PhotoCameraIcon />
@@ -76,12 +82,12 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
                 </TableCell>
                 <TableCell>{item.card?.name}</TableCell>
                 <TableCell>{item.desiredQuantity}</TableCell>
-                <TableCell sx={{ textTransform: 'capitalize' }}>
+                <TableCell sx={{ textTransform: "capitalize" }}>
                   {item.language}
                 </TableCell>
                 <TableCell>
                   <DeleteIcon
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ cursor: "pointer" }}
                     onClick={() => setDeleteId(item.id)}
                   />
                 </TableCell>
@@ -99,12 +105,12 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
               onClick={async () => {
                 if (deleteId) {
                   try {
-                    await deleteWishlistItem(deleteId, user.access_token)
-                    setItems(items.filter((it) => it.id !== deleteId))
+                    await deleteWishlistItem(deleteId, user.access_token);
+                    setItems(items.filter((it) => it.id !== deleteId));
                   } catch (err) {
-                    console.warn(err)
+                    console.warn(err);
                   } finally {
-                    setDeleteId(null)
+                    setDeleteId(null);
                   }
                 }
               }}
@@ -117,7 +123,8 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
         </Dialog>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default Wishlist
+export default Wishlist;
+
