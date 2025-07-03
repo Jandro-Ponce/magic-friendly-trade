@@ -169,8 +169,11 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   _ed.image_uris?.normal ||
                   _ed.card_faces?.[0]?.image_uris?.normal ||
                   '',
-                language: _language,
-                quantity: _quantity === 'indiferente' ? 1 : (_quantity as number),
+                language: _language === 'indiferente' ? undefined : _language,
+                quantity:
+                  _quantity === 'indiferente'
+                    ? undefined
+                    : (_quantity as number),
                 addToWishlist: _wishlist,
               },
               user.access_token,
