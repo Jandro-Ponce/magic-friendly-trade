@@ -7,11 +7,13 @@ import SellIcon from "@mui/icons-material/Sell";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
 import CardEditionModal from "./CardEditionModal";
+import InventoryModal from "./InventoryModal";
 import {
   searchCards,
   getCard,
   type CardWithEditions,
   findSellers,
+  createInventoryItem,
 } from "./api";
 
 type SearchResultsProps = {
@@ -26,6 +28,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
   const [query, setQuery] = useState("");
   const [selectedCard, setSelectedCard] = useState<CardWithEditions | null>(null);
   const [editionOpen, setEditionOpen] = useState(false);
+  const [sellOpen, setSellOpen] = useState(false);
   const [selectedEdition, setSelectedEdition] = useState<any | null>(null);
 
   useEffect(() => {
@@ -144,6 +147,15 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                         boxShadow: 2,
                       },
                     }}
+                    onClick={async () => {
+                      try {
+                        const cardData = await getCard(card.id)
+                        setSelectedCard(cardData)
+                        setSellOpen(true)
+                      } catch (err) {
+                        console.warn(err)
+                      }
+                    }}
                   >
                     Vendo
                   </Button>
@@ -189,6 +201,32 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
               params.set('quantity', String(_quantity));
             }
             navigate(`/cards/${_ed.id}?${params.toString()}`);
+          }
+        }}
+      />
+      <InventoryModal
+        open={sellOpen}
+        editions={selectedCard?.editions ?? []}
+        onClose={() => setSellOpen(false)}
+        onConfirm={async (_ed, _language, _quantity) => {
+          setSelectedEdition(_ed)
+          setSellOpen(false)
+          if (_quantity === 'indiferente') return
+          try {
+            await createInventoryItem(
+              {
+                cardId: _ed.id,
+                cardName: selectedCard?.name ?? '',
+                imageUrl:
+                  _ed.image_uris?.normal ||
+                  _ed.card_faces?.[0]?.image_uris?.normal ||
+                  '',
+                quantity: _quantity as number,
+              },
+              user.access_token,
+            )
+          } catch (err) {
+            console.warn(err)
           }
         }}
       />
