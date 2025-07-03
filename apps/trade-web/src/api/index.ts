@@ -155,6 +155,49 @@ export async function getWishlist(token: string) {
   return await response.json();
 }
 
+export async function getInventory(token: string) {
+  const response = await fetch(API_URL + "/inventory", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch inventory');
+  }
+
+  return await response.json();
+}
+
+export async function createInventoryItem(
+  data: { cardId: string; cardName: string; imageUrl?: string; quantity: number },
+  token: string,
+) {
+  const response = await jsonFetch(API_URL + "/inventory", {
+    method: 'POST',
+    payload: data,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(
+      Array.isArray(result.message) ? result.message.join(', ') : result.message,
+    );
+  }
+
+  return await response.json();
+}
+
+export async function deleteInventoryItem(id: string, token: string) {
+  const response = await fetch(`${API_URL}/inventory/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete inventory item');
+  }
+}
+
 export async function deleteWishlistItem(id: string, token: string) {
   const response = await fetch(`${API_URL}/wishlist/${encodeURIComponent(id)}`, {
     method: 'DELETE',
