@@ -55,8 +55,8 @@ export class InventoryController {
           imageUrl: dto.imageUrl,
         } as any,
         imageUrl: dto.imageUrl,
-        desiredQuantity: dto.quantity,
-        language: dto.language,
+        desiredQuantity: dto.quantity ?? 1,
+        language: dto.language ?? 'indiferente',
       });
     }
     return this.inventoryService.findByCard(dto.cardId);

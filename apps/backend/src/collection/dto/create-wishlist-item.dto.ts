@@ -1,7 +1,7 @@
 export class CreateWishlistItemDto {
   cardId: string;
-  desiredQuantity: number;
+  desiredQuantity?: number;
   cardName: string;
   imageUrl?: string;
-  language: string;
+  language?: string;
 }

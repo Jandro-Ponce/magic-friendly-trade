@@ -112,8 +112,8 @@ export async function findSellers(
     cardId: string;
     cardName: string;
     imageUrl?: string;
-    language: string;
-    quantity: number;
+    language?: string;
+    quantity?: number;
     addToWishlist: boolean;
   },
   token: string,
