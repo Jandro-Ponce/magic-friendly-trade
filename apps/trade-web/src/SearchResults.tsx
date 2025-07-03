@@ -211,7 +211,6 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         onConfirm={async (_ed, _language, _quantity) => {
           setSelectedEdition(_ed)
           setSellOpen(false)
-          if (_quantity === 'indiferente') return
           try {
             await createInventoryItem(
               {
@@ -221,7 +220,8 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   _ed.image_uris?.normal ||
                   _ed.card_faces?.[0]?.image_uris?.normal ||
                   '',
-                quantity: _quantity as number,
+                quantity:
+                  typeof _quantity === 'number' ? _quantity : 1,
               },
               user.access_token,
             )
