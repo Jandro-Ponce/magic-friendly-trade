@@ -26,7 +26,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
   const [query, setQuery] = useState("");
   const [selectedCard, setSelectedCard] = useState<CardWithEditions | null>(null);
   const [editionOpen, setEditionOpen] = useState(false);
-  const [ setSelectedEdition] = useState<any | null>(null);
+  const [selectedEdition, setSelectedEdition] = useState<any | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -181,7 +181,14 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
           } catch (err) {
             console.warn(err);
           } finally {
-            navigate(`/cards/${_ed.id}`);
+            const params = new URLSearchParams();
+            if (_language !== 'indiferente') {
+              params.set('language', _language);
+            }
+            if (_quantity !== 'indiferente') {
+              params.set('quantity', String(_quantity));
+            }
+            navigate(`/cards/${_ed.id}?${params.toString()}`);
           }
         }}
       />

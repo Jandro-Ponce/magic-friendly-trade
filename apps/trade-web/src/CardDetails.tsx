@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import {
   Box,
   Container,
@@ -21,8 +21,12 @@ export type CardDetailsProps = {
 
 export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   const { id } = useParams()
+  const location = useLocation()
   const [card, setCard] = useState<any | null>(null)
   const [sellers, setSellers] = useState<any[]>([])
+  const params = new URLSearchParams(location.search)
+  const quantity = params.get('quantity')
+  const language = params.get('language')
 
   useEffect(() => {
     if (!id) return
@@ -34,9 +38,19 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   useEffect(() => {
     if (!id) return
     getSellers(id, user.access_token)
-      .then(setSellers)
+      .then((data) => {
+        let filtered = data
+        if (quantity) {
+          const q = parseInt(quantity, 10)
+          filtered = filtered.filter((s: any) => s.quantity >= q)
+        }
+        if (language) {
+          filtered = filtered.filter((s: any) => s.language === language)
+        }
+        setSellers(filtered)
+      })
       .catch((err) => console.warn(err))
-  }, [id, user.access_token])
+  }, [id, user.access_token, location.search])
 
   const imgSrc =
     card?.image_uris?.normal || card?.card_faces?.[0]?.image_uris?.normal || null
