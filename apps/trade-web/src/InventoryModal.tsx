@@ -28,7 +28,7 @@ export const InventoryModal = ({
 }: InventoryModalProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [language, setLanguage] = useState('indiferente')
-  const [quantity, setQuantity] = useState<Quantity>('indiferente')
+  const [quantity, setQuantity] = useState<Quantity>(1)
   const LANGUAGES = [
     'indiferente',
     'EN',
@@ -42,7 +42,7 @@ export const InventoryModal = ({
     'RU',
     'ZH',
   ]
-  const QUANTITIES: Quantity[] = ['indiferente', 1, 2, 3, 4]
+  const QUANTITIES: Quantity[] = [1, 2, 3, 4]
 
   const handleConfirm = () => {
     if (selectedIndex != null && onConfirm) {
