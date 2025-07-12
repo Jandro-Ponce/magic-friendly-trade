@@ -10,6 +10,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormControlLabel,
+  Checkbox,
+  TextField,
 } from '@mui/material'
 import type { Quantity } from './CardEditionModal'
 
@@ -17,7 +20,14 @@ export type InventoryModalProps = {
   open: boolean
   editions: any[]
   onClose: () => void
-  onConfirm?: (edition: any, language: string, quantity: Quantity) => void
+  onConfirm?: (
+    edition: any,
+    language: string,
+    quantity: Quantity,
+    foil: boolean,
+    signed: boolean,
+    comment: string,
+  ) => void
 }
 
 export const InventoryModal = ({
@@ -29,6 +39,9 @@ export const InventoryModal = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [language, setLanguage] = useState('indiferente')
   const [quantity, setQuantity] = useState<Quantity>(1)
+  const [foil, setFoil] = useState(false)
+  const [signed, setSigned] = useState(false)
+  const [comment, setComment] = useState('')
   const LANGUAGES = [
     'indiferente',
     'EN',
@@ -46,7 +59,14 @@ export const InventoryModal = ({
 
   const handleConfirm = () => {
     if (selectedIndex != null && onConfirm) {
-      onConfirm(editions[selectedIndex], language, quantity)
+      onConfirm(
+        editions[selectedIndex],
+        language,
+        quantity,
+        foil,
+        signed,
+        comment,
+      )
     }
     onClose()
   }
@@ -151,6 +171,34 @@ export const InventoryModal = ({
                 ))}
               </Select>
             </FormControl>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={foil}
+                  onChange={(e) => setFoil(e.target.checked)}
+                  color="warning"
+                />
+              }
+              label="Foil"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={signed}
+                  onChange={(e) => setSigned(e.target.checked)}
+                  color="warning"
+                />
+              }
+              label="Firmada"
+            />
+            <TextField
+              label="Comentario"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              size="small"
+              color="warning"
+              sx={{ minWidth: 200 }}
+            />
           </Box>
           <Button
             variant="contained"

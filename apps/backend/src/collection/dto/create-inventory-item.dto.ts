@@ -3,4 +3,7 @@ export class CreateInventoryItemDto {
   quantity: number;
   cardName: string;
   imageUrl?: string;
+  foil?: boolean;
+  signed?: boolean;
+  comment?: string;
 }

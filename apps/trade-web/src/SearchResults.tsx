@@ -208,7 +208,14 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         open={sellOpen}
         editions={selectedCard?.editions ?? []}
         onClose={() => setSellOpen(false)}
-        onConfirm={async (_ed, _language, _quantity) => {
+        onConfirm={async (
+          _ed,
+          _language,
+          _quantity,
+          _foil,
+          _signed,
+          _comment,
+        ) => {
           setSelectedEdition(_ed)
           setSellOpen(false)
           try {
@@ -222,6 +229,9 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
                   '',
                 quantity:
                   typeof _quantity === 'number' ? _quantity : 1,
+                foil: _foil,
+                signed: _signed,
+                comment: _comment,
               },
               user.access_token,
             )

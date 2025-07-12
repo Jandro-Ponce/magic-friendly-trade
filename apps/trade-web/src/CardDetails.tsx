@@ -111,11 +111,11 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
                   {sellers.map((s) => (
                     <TableRow key={s.id}>
                       <TableCell>{s.user?.username}</TableCell>
-                      <TableCell>No</TableCell>
-                      <TableCell>No</TableCell>
-                      <TableCell></TableCell>
+                      <TableCell>{s.foil ? 'Sí' : 'No'}</TableCell>
+                      <TableCell>{s.signed ? 'Sí' : 'No'}</TableCell>
+                      <TableCell>{s.comment || ''}</TableCell>
                       <TableCell>{s.quantity}</TableCell>
-                      <TableCell>indiferente</TableCell>
+                      <TableCell>{s.language || 'indiferente'}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

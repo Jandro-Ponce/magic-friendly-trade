@@ -15,4 +15,13 @@ export class InventoryItem {
 
   @Column({ default: 1 })
   quantity: number;
+
+  @Column({ default: false })
+  foil: boolean;
+
+  @Column({ default: false })
+  signed: boolean;
+
+  @Column({ nullable: true })
+  comment?: string;
 }
