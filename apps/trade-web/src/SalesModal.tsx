@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import type { Quantity } from './CardEditionModal'
 
-export type InventoryModalProps = {
+export type SalesModalProps = {
   open: boolean
   editions: any[]
   onClose: () => void
@@ -30,12 +30,12 @@ export type InventoryModalProps = {
   ) => void
 }
 
-export const InventoryModal = ({
+export const SalesModal = ({
   open,
   editions,
   onClose,
   onConfirm,
-}: InventoryModalProps) => {
+}: SalesModalProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [language, setLanguage] = useState('indiferente')
   const [quantity, setQuantity] = useState<Quantity>(1)
@@ -212,7 +212,7 @@ export const InventoryModal = ({
             onClick={handleConfirm}
             disabled={selectedIndex === null}
           >
-            Agregar a inventario
+            Agregar a lista de ventas
           </Button>
         </Box>
       </DialogActions>
@@ -220,4 +220,4 @@ export const InventoryModal = ({
   )
 }
 
-export default InventoryModal
+export default SalesModal

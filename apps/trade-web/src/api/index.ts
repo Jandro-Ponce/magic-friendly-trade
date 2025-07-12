@@ -118,7 +118,7 @@ export async function findSellers(
   },
   token: string,
 ) {
-  const response = await jsonFetch(API_URL + "/inventory/find-sellers", {
+  const response = await jsonFetch(API_URL + "/sales/find-sellers", {
     method: "POST",
     payload: data,
     headers: { Authorization: `Bearer ${token}` },
@@ -132,7 +132,7 @@ export async function findSellers(
 }
 
 export async function getSellers(cardId: string, token: string) {
-  const response = await fetch(`${API_URL}/inventory/card/${encodeURIComponent(cardId)}`, {
+  const response = await fetch(`${API_URL}/sales/card/${encodeURIComponent(cardId)}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -155,19 +155,19 @@ export async function getWishlist(token: string) {
   return await response.json();
 }
 
-export async function getInventory(token: string) {
-  const response = await fetch(API_URL + "/inventory", {
+export async function getSales(token: string) {
+  const response = await fetch(API_URL + "/sales", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch inventory');
+    throw new Error('Failed to fetch sales');
   }
 
   return await response.json();
 }
 
-export async function createInventoryItem(
+export async function createSaleItem(
   data: {
     cardId: string;
     cardName: string;
@@ -179,7 +179,7 @@ export async function createInventoryItem(
   },
   token: string,
 ) {
-  const response = await jsonFetch(API_URL + "/inventory", {
+  const response = await jsonFetch(API_URL + "/sales", {
     method: 'POST',
     payload: data,
     headers: { Authorization: `Bearer ${token}` },
@@ -195,14 +195,14 @@ export async function createInventoryItem(
   return await response.json();
 }
 
-export async function deleteInventoryItem(id: string, token: string) {
-  const response = await fetch(`${API_URL}/inventory/${encodeURIComponent(id)}`, {
+export async function deleteSaleItem(id: string, token: string) {
+  const response = await fetch(`${API_URL}/sales/${encodeURIComponent(id)}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
 
   if (!response.ok) {
-    throw new Error('Failed to delete inventory item');
+    throw new Error('Failed to delete sale item');
   }
 }
 

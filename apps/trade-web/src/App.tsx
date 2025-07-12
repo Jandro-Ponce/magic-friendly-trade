@@ -7,7 +7,7 @@ import { Dashboard } from './Dashboard'
 import { SearchResults } from './SearchResults'
 import { CardDetails } from './CardDetails'
 import { Wishlist } from './Wishlist'
-import { Inventory } from './Inventory'
+import { Sales } from './Sales'
 import Register from './Register'
 
 function App() {
@@ -82,10 +82,10 @@ function App() {
             }
           />
           <Route
-            path="/inventory"
+            path="/sales"
             element={
               user ? (
-                <Inventory user={user} onLogout={handleLogout} />
+                <Sales user={user} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" replace />
               )

@@ -9,12 +9,12 @@ import { WishlistItemRepository } from './repository/wishlist-item.repository';
 import { CardService } from './service/card.service';
 import { InventoryService } from './service/inventory.service';
 import { WishlistService } from './service/wishlist.service';
-import { InventoryController } from './controller/inventory.controller';
+import { SalesController } from './controller/sales.controller';
 import { WishlistController } from './controller/wishlist.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Card, InventoryItem, WishlistItem])],
-  controllers: [InventoryController, WishlistController],
+  controllers: [SalesController, WishlistController],
   providers: [
     CardRepository,
     InventoryItemRepository,
