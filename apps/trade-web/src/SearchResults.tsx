@@ -7,13 +7,13 @@ import SellIcon from "@mui/icons-material/Sell";
 import NavBar from "./NavBar";
 import type { AuthUser } from "./Login";
 import CardEditionModal from "./CardEditionModal";
-import InventoryModal from "./InventoryModal";
+import SalesModal from "./SalesModal";
 import {
   searchCards,
   getCard,
   type CardWithEditions,
   findSellers,
-  createInventoryItem,
+  createSaleItem,
 } from "./api";
 
 type SearchResultsProps = {
@@ -204,7 +204,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
           }
         }}
       />
-      <InventoryModal
+      <SalesModal
         open={sellOpen}
         editions={selectedCard?.editions ?? []}
         onClose={() => setSellOpen(false)}
@@ -219,7 +219,7 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
           setSelectedEdition(_ed)
           setSellOpen(false)
           try {
-            await createInventoryItem(
+            await createSaleItem(
               {
                 cardId: _ed.id,
                 cardName: selectedCard?.name ?? '',

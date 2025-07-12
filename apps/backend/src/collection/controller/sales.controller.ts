@@ -18,8 +18,8 @@ import { FindSellersDto } from '../dto/find-sellers.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('inventory')
-export class InventoryController {
+@Controller('sales')
+export class SalesController {
   constructor(
     private readonly inventoryService: InventoryService,
     private readonly wishlistService: WishlistService,

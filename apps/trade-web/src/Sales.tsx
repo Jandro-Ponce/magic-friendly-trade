@@ -18,19 +18,19 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import DeleteIcon from '@mui/icons-material/Delete'
 import NavBar from './NavBar'
 import type { AuthUser } from './Login'
-import { getInventory, deleteInventoryItem } from './api'
+import { getSales, deleteSaleItem } from './api'
 
-export type InventoryProps = {
+export type SalesProps = {
   user: AuthUser
   onLogout: () => void
 }
 
-export const Inventory = ({ user, onLogout }: InventoryProps) => {
+export const Sales = ({ user, onLogout }: SalesProps) => {
   const [items, setItems] = useState<any[]>([])
   const [deleteId, setDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
-    getInventory(user.access_token)
+    getSales(user.access_token)
       .then(setItems)
       .catch((err) => console.warn(err))
   }, [user.access_token])
@@ -40,13 +40,16 @@ export const Inventory = ({ user, onLogout }: InventoryProps) => {
       <NavBar user={user} onLogout={onLogout} />
       <Container sx={{ mt: 2, flexGrow: 1 }}>
         <Typography variant='h6' sx={{ mb: 2 }}>
-          Inventario
+          Ventas
         </Typography>
         <Table size='small'>
           <TableHead>
             <TableRow>
               <TableCell>Foto</TableCell>
               <TableCell>Nombre</TableCell>
+              <TableCell>Foil</TableCell>
+              <TableCell>Firmada</TableCell>
+              <TableCell>Comentario</TableCell>
               <TableCell>Cantidad</TableCell>
               <TableCell />
             </TableRow>
@@ -79,6 +82,9 @@ export const Inventory = ({ user, onLogout }: InventoryProps) => {
                   )}
                 </TableCell>
                 <TableCell>{item.card?.name}</TableCell>
+                <TableCell>{item.foil ? 'Sí' : 'No'}</TableCell>
+                <TableCell>{item.signed ? 'Sí' : 'No'}</TableCell>
+                <TableCell>{item.comment || ''}</TableCell>
                 <TableCell>{item.quantity}</TableCell>
                 <TableCell>
                   <DeleteIcon
@@ -100,7 +106,7 @@ export const Inventory = ({ user, onLogout }: InventoryProps) => {
               onClick={async () => {
                 if (deleteId) {
                   try {
-                    await deleteInventoryItem(deleteId, user.access_token)
+                    await deleteSaleItem(deleteId, user.access_token)
                     setItems(items.filter((it) => it.id !== deleteId))
                   } catch (err) {
                     console.warn(err)
@@ -121,4 +127,4 @@ export const Inventory = ({ user, onLogout }: InventoryProps) => {
   )
 }
 
-export default Inventory
+export default Sales
