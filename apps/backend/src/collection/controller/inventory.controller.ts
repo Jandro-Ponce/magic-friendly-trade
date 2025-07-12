@@ -41,6 +41,9 @@ export class InventoryController {
         imageUrl: dto.imageUrl,
       } as any,
       quantity: dto.quantity,
+      foil: Boolean(dto.foil),
+      signed: Boolean(dto.signed),
+      comment: dto.comment,
     });
   }
 

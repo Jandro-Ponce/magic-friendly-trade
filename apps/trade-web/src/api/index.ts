@@ -168,7 +168,15 @@ export async function getInventory(token: string) {
 }
 
 export async function createInventoryItem(
-  data: { cardId: string; cardName: string; imageUrl?: string; quantity: number },
+  data: {
+    cardId: string;
+    cardName: string;
+    imageUrl?: string;
+    quantity: number;
+    foil?: boolean;
+    signed?: boolean;
+    comment?: string;
+  },
   token: string,
 ) {
   const response = await jsonFetch(API_URL + "/inventory", {
