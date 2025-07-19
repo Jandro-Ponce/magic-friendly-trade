@@ -9,6 +9,8 @@ import { CardDetails } from './CardDetails'
 import { Wishlist } from './Wishlist'
 import { Sales } from './Sales'
 import Register from './Register'
+import Conversations from './Conversations'
+import Chat from './Chat'
 
 function App() {
   const [user, userSet] = useState<AuthUser | null>(() => {
@@ -96,6 +98,26 @@ function App() {
             element={
               user ? (
                 <Wishlist user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/conversations"
+            element={
+              user ? (
+                <Conversations user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/conversations/:id"
+            element={
+              user ? (
+                <Chat user={user} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" replace />
               )
