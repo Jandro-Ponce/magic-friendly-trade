@@ -38,4 +38,16 @@ export class ConversationService {
       content,
     });
   }
+
+  async findOrCreateConversation(
+    userId: string,
+    otherUserId: string,
+  ): Promise<Conversation> {
+    const existing = await this.conversationRepo.findBetween(userId, otherUserId);
+    if (existing) return existing;
+    return this.conversationRepo.createAndSave({
+      user1: { id: userId } as any,
+      user2: { id: otherUserId } as any,
+    });
+  }
 }
