@@ -259,6 +259,20 @@ export async function sendMessage(id: string, content: string, token: string) {
   return await response.json();
 }
 
+export async function createConversation(userId: string, token: string) {
+  const response = await jsonFetch(`${API_URL}/conversations`, {
+    method: 'POST',
+    payload: { userId },
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to create conversation');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {

@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Request, ParseUUIDPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Request,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ConversationService } from '../service/conversation.service';
 import { CreateMessageDto } from '../dto/create-message.dto';
+import { CreateConversationDto } from '../dto/create-conversation.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('conversations')
@@ -11,6 +21,14 @@ export class ConversationController {
   @Get()
   findAll(@Request() req) {
     return this.service.findConversations(req.user.userId);
+  }
+
+  @Post()
+  create(
+    @Request() req,
+    @Body() dto: CreateConversationDto,
+  ) {
+    return this.service.findOrCreateConversation(req.user.userId, dto.userId);
   }
 
   @Get(':id/messages')

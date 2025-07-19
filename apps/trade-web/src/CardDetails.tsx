@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import {
   Box,
   Container,
@@ -10,9 +10,10 @@ import {
   TableCell,
   TableBody,
 } from '@mui/material'
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import NavBar from './NavBar'
 import type { AuthUser } from './Login'
-import { getCard, getSellers } from './api'
+import { getCard, getSellers, createConversation } from './api'
 
 export type CardDetailsProps = {
   user: AuthUser
@@ -22,6 +23,7 @@ export type CardDetailsProps = {
 export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
   const { id } = useParams()
   const location = useLocation()
+  const navigate = useNavigate()
   const [card, setCard] = useState<any | null>(null)
   const [sellers, setSellers] = useState<any[]>([])
   const params = new URLSearchParams(location.search)
@@ -105,6 +107,7 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
                     <TableCell>Comentario</TableCell>
                     <TableCell>Cantidad</TableCell>
                     <TableCell>Idioma</TableCell>
+                    <TableCell />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -116,6 +119,22 @@ export const CardDetails = ({ user, onLogout }: CardDetailsProps) => {
                       <TableCell>{s.comment || ''}</TableCell>
                       <TableCell>{s.quantity}</TableCell>
                       <TableCell>{s.language || 'indiferente'}</TableCell>
+                      <TableCell>
+                        <ChatBubbleOutlineIcon
+                          sx={{ cursor: 'pointer' }}
+                          onClick={async () => {
+                            try {
+                              const conv = await createConversation(
+                                s.user.id,
+                                user.access_token,
+                              )
+                              navigate(`/conversations/${conv.id}`)
+                            } catch (err) {
+                              console.warn(err)
+                            }
+                          }}
+                        />
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
