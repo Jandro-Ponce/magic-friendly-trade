@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { CardModule } from './card/card.module';
 import { CollectionModule } from './collection/collection.module';
 import { ProfileModule } from './profile/profile.module';
+import { ConversationModule } from './conversation/conversation.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { ProfileModule } from './profile/profile.module';
     AuthModule,
     CardModule,
     CollectionModule,
-    ProfileModule
+    ProfileModule,
+    ConversationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

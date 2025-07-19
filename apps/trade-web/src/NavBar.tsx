@@ -65,6 +65,7 @@ export const NavBar = ({ user, onLogout }: NavBarProps) => {
   const menuItems = [
     { text: "Ventas", path: "/sales" },
     { text: "Lista de deseos", path: "/wishlist" },
+    { text: "Conversaciones", path: "/conversations" },
     { text: "Notificaciones", path: "/notifications" },
   ];
 

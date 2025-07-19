@@ -217,6 +217,48 @@ export async function deleteWishlistItem(id: string, token: string) {
   }
 }
 
+export async function getConversations(token: string) {
+  const response = await fetch(`${API_URL}/conversations`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch conversations');
+  }
+
+  return await response.json();
+}
+
+export async function getMessages(id: string, token: string) {
+  const response = await fetch(
+    `${API_URL}/conversations/${encodeURIComponent(id)}/messages`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch messages');
+  }
+
+  return await response.json();
+}
+
+export async function sendMessage(id: string, content: string, token: string) {
+  const response = await jsonFetch(
+    `${API_URL}/conversations/${encodeURIComponent(id)}/messages`,
+    {
+      method: 'POST',
+      payload: { content },
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to send message');
+  }
+
+  return await response.json();
+}
+
 export function authApi(token: string) {
   return {
     async me(token: string) {
