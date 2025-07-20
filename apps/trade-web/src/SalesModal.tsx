@@ -13,6 +13,8 @@ import {
   FormControlLabel,
   Checkbox,
   TextField,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material'
 import type { Quantity } from './CardEditionModal'
 
@@ -42,6 +44,8 @@ export const SalesModal = ({
   const [foil, setFoil] = useState(false)
   const [signed, setSigned] = useState(false)
   const [comment, setComment] = useState('')
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const LANGUAGES = [
     'indiferente',
     'EN',
@@ -72,7 +76,7 @@ export const SalesModal = ({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={fullScreen}>
       <DialogTitle>Selecciona una edición</DialogTitle>
       <DialogContent>
         <Box

@@ -4,6 +4,7 @@ import {
   Container,
   Typography,
   Table,
+  TableContainer,
   TableHead,
   TableRow,
   TableCell,
@@ -43,6 +44,7 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
         <Typography variant="h6" sx={{ mb: 2 }}>
           Mi lista de deseos
         </Typography>
+        <TableContainer sx={{ overflowX: 'auto' }}>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -95,6 +97,7 @@ export const Wishlist = ({ user, onLogout }: WishlistProps) => {
             ))}
           </TableBody>
         </Table>
+        </TableContainer>
         <Dialog open={Boolean(deleteId)} onClose={() => setDeleteId(null)}>
           <DialogTitle>
             ¿Estás seguro de que quieres eliminar esta carta?

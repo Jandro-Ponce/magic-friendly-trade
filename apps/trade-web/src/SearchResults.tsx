@@ -57,7 +57,11 @@ export const SearchResults = ({ user, onLogout }: SearchResultsProps) => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(3, 1fr)',
+              md: 'repeat(4, 1fr)',
+            },
             columnGap: 0.25,
             rowGap: 1,
           }}
