@@ -43,7 +43,7 @@ export const Chat = ({ user, onLogout }: ChatProps) => {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <NavBar user={user} onLogout={onLogout} />
-      <Container sx={{ mt: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+      <Container sx={{ mt: 2, flexGrow: 1, display: 'flex', flexDirection: 'column', pb: 3 }}>
         <Typography variant='h6' sx={{ mb: 2 }}>Chat</Typography>
         <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
           <List>
