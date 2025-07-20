@@ -4,6 +4,7 @@ import {
   Container,
   Typography,
   Table,
+  TableContainer,
   TableHead,
   TableRow,
   TableCell,
@@ -42,6 +43,7 @@ export const Sales = ({ user, onLogout }: SalesProps) => {
         <Typography variant='h6' sx={{ mb: 2 }}>
           Ventas
         </Typography>
+        <TableContainer sx={{ overflowX: 'auto' }}>
         <Table size='small'>
           <TableHead>
             <TableRow>
@@ -96,6 +98,7 @@ export const Sales = ({ user, onLogout }: SalesProps) => {
             ))}
           </TableBody>
         </Table>
+        </TableContainer>
         <Dialog open={Boolean(deleteId)} onClose={() => setDeleteId(null)}>
           <DialogTitle>
             ¿Estás seguro de que quieres eliminar esta carta?

@@ -122,7 +122,11 @@ export const NavBar = ({ user, onLogout }: NavBarProps) => {
                 </InputAdornment>
               ),
             }}
-            sx={{ maxWidth: 400, width: "100%", ml: 2 }}
+            sx={{
+              width: '100%',
+              maxWidth: { sm: 400 },
+              ml: { xs: 1, sm: 2 },
+            }}
           />
         </Box>
         <Box

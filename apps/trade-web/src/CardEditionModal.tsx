@@ -12,6 +12,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material'
 
 export type Quantity = 'indiferente' | 1 | 2 | 3 | 4
@@ -38,6 +40,8 @@ export const CardEditionModal = ({
   const [addToWishlist, setAddToWishlist] = useState(false)
   const [language, setLanguage] = useState('indiferente')
   const [quantity, setQuantity] = useState<Quantity>('indiferente')
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const LANGUAGES = [
     'indiferente',
     'EN',
@@ -61,7 +65,7 @@ export const CardEditionModal = ({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={fullScreen}>
       <DialogTitle>Selecciona una edición</DialogTitle>
       <DialogContent>
         <Box
