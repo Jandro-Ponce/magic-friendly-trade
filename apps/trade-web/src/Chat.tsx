@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Box, Container, Typography, List, ListItem, TextField, Button } from '@mui/material';
+import { Box, Container, Typography, List, ListItem, TextField, Button, IconButton } from '@mui/material';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import NavBar from './NavBar';
 import type { AuthUser } from './Login';
 import { getMessages, sendMessage } from './api';
@@ -14,6 +16,7 @@ export const Chat = ({ user, onLogout }: ChatProps) => {
   const { id } = useParams();
   const [messages, setMessages] = useState<any[]>([]);
   const [text, setText] = useState('');
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -33,6 +36,10 @@ export const Chat = ({ user, onLogout }: ChatProps) => {
     }
   };
 
+  const handleEmojiClick = (emojiData: EmojiClickData) => {
+    setText((prev) => prev + emojiData.emoji);
+  };
+
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <NavBar user={user} onLogout={onLogout} />
@@ -45,7 +52,7 @@ export const Chat = ({ user, onLogout }: ChatProps) => {
             ))}
           </List>
         </Box>
-        <Box sx={{ display: 'flex', mt: 1 }}>
+        <Box sx={{ display: 'flex', mt: 1, alignItems: 'center', position: 'relative' }}>
           <TextField
             fullWidth
             value={text}
@@ -53,8 +60,22 @@ export const Chat = ({ user, onLogout }: ChatProps) => {
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSend();
             }}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => setPickerOpen((prev) => !prev)}>
+                  <InsertEmoticonIcon />
+                </IconButton>
+              ),
+            }}
           />
-          <Button onClick={handleSend} sx={{ ml: 1 }} variant='contained'>Enviar</Button>
+          <Button onClick={handleSend} sx={{ ml: 1 }} variant='contained'>
+            Enviar
+          </Button>
+          {pickerOpen && (
+            <Box sx={{ position: 'absolute', bottom: 56, right: 0, zIndex: 1 }}>
+              <EmojiPicker onEmojiClick={handleEmojiClick} height={350} />
+            </Box>
+          )}
         </Box>
       </Container>
     </Box>
