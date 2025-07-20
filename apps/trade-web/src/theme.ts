@@ -7,6 +7,10 @@ export const darkTheme = createTheme({
       main: '#ffffff',
     },
   },
+  typography: {
+    fontFamily:
+      "Roboto, Helvetica, Arial, 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiSymbols', sans-serif",
+  },
   shape: {
     borderRadius: 24,
   },
