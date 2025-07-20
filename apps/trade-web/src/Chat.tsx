@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Container, Typography, List, ListItem, TextField, Button, IconButton } from '@mui/material';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import EmojiPicker, { type EmojiClickData } from 'emoji-picker-react';
 import NavBar from './NavBar';
 import type { AuthUser } from './Login';
 import { getMessages, sendMessage } from './api';
