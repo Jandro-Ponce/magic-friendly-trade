@@ -30,10 +30,10 @@ export class SalesController {
     return this.inventoryService.findByUser(req.user.userId);
   }
 
-  // Últimas 5 cartas puestas a la venta
+  // Últimas 3 cartas puestas a la venta
   @Get('latest-listed')
   async getLatestListed() {
-    return this.inventoryService.findLatestListed(5);
+    return this.inventoryService.findLatestListed(3);
   }
 
   // Últimas 5 cartas vendidas

@@ -5,14 +5,6 @@ export async function getLatestListed(token: string) {
   if (!response.ok) throw new Error("No se pudo obtener las cartas listadas");
   return await response.json();
 }
-
-export async function getLatestSold(token: string) {
-  const response = await fetch(API_URL + "/sales/latest-sold", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!response.ok) throw new Error("No se pudo obtener las cartas vendidas");
-  return await response.json();
-}
 const API_URL = "http://localhost:3000";
 
 
