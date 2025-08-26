@@ -30,6 +30,18 @@ export class SalesController {
     return this.inventoryService.findByUser(req.user.userId);
   }
 
+  // Últimas 5 cartas puestas a la venta
+  @Get('latest-listed')
+  async getLatestListed() {
+    return this.inventoryService.findLatestListed(5);
+  }
+
+  // Últimas 5 cartas vendidas
+  @Get('latest-sold')
+  async getLatestSold() {
+    return this.inventoryService.findLatestSold(5);
+  }
+
   @Post()
   create(@Request() req, @Body() dto: CreateInventoryItemDto) {
     const userId = req.user.userId;

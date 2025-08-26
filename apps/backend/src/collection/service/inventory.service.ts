@@ -14,6 +14,16 @@ export class InventoryService {
     return this.repository.findByUser(userId);
   }
 
+  // Últimas N cartas listadas
+  findLatestListed(limit: number): Promise<InventoryItem[]> {
+    return this.repository.findLatestListed(limit);
+  }
+
+  // Últimas N cartas vendidas
+  findLatestSold(limit: number): Promise<InventoryItem[]> {
+    return this.repository.findLatestSold(limit);
+  }
+
   findById(id: string): Promise<InventoryItem | null> {
     return this.repository.findById(id);
   }

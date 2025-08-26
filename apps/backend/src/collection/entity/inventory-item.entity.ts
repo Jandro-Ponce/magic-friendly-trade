@@ -24,4 +24,8 @@ export class InventoryItem {
 
   @Column({ nullable: true })
   comment?: string;
+
+  // Fecha de venta (null si no se ha vendido)
+  @Column({ type: 'timestamp', nullable: true })
+  soldAt?: Date;
 }

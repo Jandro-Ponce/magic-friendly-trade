@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Not } from 'typeorm';
 import { InventoryItem } from '../entity/inventory-item.entity';
 
 @Injectable()
@@ -12,6 +13,24 @@ export class InventoryItemRepository {
 
   findByUser(userId: string): Promise<InventoryItem[]> {
     return this.repository.find({ where: { user: { id: userId } } });
+  }
+
+  // Últimas N cartas listadas (por fecha de creación)
+  async findLatestListed(limit: number): Promise<InventoryItem[]> {
+    return this.repository.find({
+      order: { id: 'DESC' }, // Si hay campo de fecha, usarlo
+      take: limit,
+    });
+  }
+
+  // Últimas N cartas vendidas (por fecha de venta)
+  async findLatestSold(limit: number): Promise<InventoryItem[]> {
+    // Filtrar por soldAt no nulo usando FindOptionsWhere
+    return this.repository.find({
+      where: { soldAt: Not(null) },
+      order: { soldAt: 'DESC' },
+      take: limit,
+    });
   }
 
   findById(id: string): Promise<InventoryItem | null> {
